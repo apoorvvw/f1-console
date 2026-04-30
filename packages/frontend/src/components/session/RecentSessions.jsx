@@ -9,7 +9,7 @@ export default function RecentSessions() {
   if (!recentSessions.length) return null;
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center" sx={{ flexWrap: 'wrap', gap: 0.5 }}>
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap', gap: 0.5 }}>
       <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
         Recent:
       </Typography>

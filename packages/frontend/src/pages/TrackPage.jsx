@@ -70,9 +70,9 @@ export default function TrackPage() {
                 onChange={(e) => { setSelectedDriver(e.target.value); setSelectedLap(null); }}
               >
                 <MenuItem value="">— Select —</MenuItem>
-                {drivers.map((d) => (
-                  <MenuItem key={d} value={d}>
-                    {d}
+                {drivers.map((driver) => (
+                  <MenuItem key={driver.abbreviation} value={driver.abbreviation}>
+                    {driver.abbreviation} — {driver.full_name}
                   </MenuItem>
                 ))}
               </Select>

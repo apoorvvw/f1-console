@@ -15,7 +15,7 @@ export default function LapFilters({ drivers = [], filters, onChange }) {
   const { selectedDrivers, compound, lapRange, maxLap } = filters;
 
   return (
-    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="flex-start" flexWrap="wrap">
+    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: 'flex-start', flexWrap: 'wrap' }}>
       <Autocomplete
         multiple
         options={drivers}
