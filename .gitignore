@@ -218,7 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # FastF1 cache
-.fastf1_cache/
+.fastf1_cache
 
 # Test results
 test-results/
