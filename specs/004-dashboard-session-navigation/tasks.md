@@ -16,8 +16,8 @@
 
 **Purpose**: Create the session routing constant and scaffold the Dashboard page file.
 
-- [ ] T001 Create session routing constant in `packages/frontend/src/constants/sessionRouting.js` — export `SESSION_ROUTE_MAP` object and `routeForSessionType(type)` function mapping `R`/`S` → `/race`, `Q`/`SQ` → `/qualifying`, `FP1`/`FP2`/`FP3` → `/race`
-- [ ] T002 Create empty `DashboardPage.jsx` in `packages/frontend/src/pages/` with a default export returning a placeholder `<div>` — used as scaffold for all subsequent tasks
+- [x] T001 Create session routing constant in `packages/frontend/src/constants/sessionRouting.js` — export `SESSION_ROUTE_MAP` object and `routeForSessionType(type)` function mapping `R`/`S` → `/race`, `Q`/`SQ` → `/qualifying`, `FP1`/`FP2`/`FP3` → `/race`
+- [x] T002 Create empty `DashboardPage.jsx` in `packages/frontend/src/pages/` with a default export returning a placeholder `<div>` — used as scaffold for all subsequent tasks
 
 ---
 
@@ -27,8 +27,8 @@
 
 **⚠️ CRITICAL**: Must be complete before Phase 3+ work can be verified end-to-end.
 
-- [ ] T003 Modify `packages/frontend/src/App.jsx` — replace `<Route path="/" element={<Navigate to="/race" replace />} />` with `<Route path="/" element={<DashboardPage />} />` and add the `DashboardPage` import
-- [ ] T004 Modify `packages/frontend/src/components/session/SessionSelector.jsx` — add an optional `onConfirm` prop; after calling `setActiveSession(session)` in `handleConfirm`, call `onConfirm?.(session)` before `onClose()`
+- [x] T003 Modify `packages/frontend/src/App.jsx` — replace `<Route path="/" element={<Navigate to="/race" replace />} />` with `<Route path="/" element={<DashboardPage />} />` and add the `DashboardPage` import
+- [x] T004 Modify `packages/frontend/src/components/session/SessionSelector.jsx` — add an optional `onConfirm` prop; after calling `setActiveSession(session)` in `handleConfirm`, call `onConfirm?.(session)` before `onClose()`
 
 **Checkpoint**: App loads at `/` showing the scaffold Dashboard; `SessionSelector` can now accept a post-confirm navigation callback.
 
@@ -42,9 +42,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Implement the session selector trigger area in `packages/frontend/src/pages/DashboardPage.jsx` — a prominent hero card with a "Select Session" button that opens `SessionSelector` dialog; pass `onConfirm` callback that calls `useNavigate` with `routeForSessionType(session.sessionType)`
-- [ ] T006 [US1] Add `RecentSessions` component to `packages/frontend/src/pages/DashboardPage.jsx` below the hero card — clicking a recent session sets it as active via `setActiveSession` and navigates to the appropriate route using `routeForSessionType`
-- [ ] T007 [US1] Wire `SessionSelector` open/close state in `packages/frontend/src/pages/DashboardPage.jsx` — local `selectorOpen` boolean state controls dialog visibility
+- [x] T005 [US1] Implement the session selector trigger area in `packages/frontend/src/pages/DashboardPage.jsx` — a prominent hero card with a "Select Session" button that opens `SessionSelector` dialog; pass `onConfirm` callback that calls `useNavigate` with `routeForSessionType(session.sessionType)`
+- [x] T006 [US1] Add `RecentSessions` component to `packages/frontend/src/pages/DashboardPage.jsx` below the hero card — clicking a recent session sets it as active via `setActiveSession` and navigates to the appropriate route using `routeForSessionType`
+- [x] T007 [US1] Wire `SessionSelector` open/close state in `packages/frontend/src/pages/DashboardPage.jsx` — local `selectorOpen` boolean state controls dialog visibility
 
 **Checkpoint**: User Story 1 is fully functional. Open `/`, select any session, land on correct page. Recent sessions appear and are clickable.
 
@@ -58,7 +58,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T008 [P] [US2] Add a Tracks navigation card to `packages/frontend/src/pages/DashboardPage.jsx` — use `<Link to="/track">` (React Router) styled as a MUI Card with a circuit/map icon and "Explore Tracks" label
+- [x] T008 [P] [US2] Add a Tracks navigation card to `packages/frontend/src/pages/DashboardPage.jsx` — use `<Link to="/track">` (React Router) styled as a MUI Card with a circuit/map icon and "Explore Tracks" label
 
 **Checkpoint**: User Story 2 complete. Tracks card is visible on Dashboard and navigates to `/track` independently of session state.
 
@@ -72,9 +72,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T009 [P] [US3] Create `UpcomingRaceCard` component in `packages/frontend/src/pages/DashboardPage.jsx` (or inline) — call `useSchedule(CURRENT_YEAR)`, derive `upcomingEvent` as the first event where `EventDate >= today`, display event name and date; show skeleton/empty state when loading or no events found
-- [ ] T010 [P] [US3] Create `StandingsSnapshotCard` component in `packages/frontend/src/pages/DashboardPage.jsx` (or inline) — derive `latestCompletedRound` from schedule (last event where `EventDate < today`), call `useStandings(CURRENT_YEAR, latestRound)`, display top 3 drivers and top 3 constructors; show skeleton/empty state when loading or round unavailable
-- [ ] T011 [US3] Compose `UpcomingRaceCard` and `StandingsSnapshotCard` into the Dashboard layout in `packages/frontend/src/pages/DashboardPage.jsx` alongside the session selector hero and Tracks card; ensure responsive grid layout using Tailwind
+- [x] T009 [P] [US3] Create `UpcomingRaceCard` component in `packages/frontend/src/pages/DashboardPage.jsx` (or inline) — call `useSchedule(CURRENT_YEAR)`, derive `upcomingEvent` as the first event where `EventDate >= today`, display event name and date; show skeleton/empty state when loading or no events found
+- [x] T010 [P] [US3] Create `StandingsSnapshotCard` component in `packages/frontend/src/pages/DashboardPage.jsx` (or inline) — derive `latestCompletedRound` from schedule (last event where `EventDate < today`), call `useStandings(CURRENT_YEAR, latestRound)`, display top 3 drivers and top 3 constructors; show skeleton/empty state when loading or round unavailable
+- [x] T011 [US3] Compose `UpcomingRaceCard` and `StandingsSnapshotCard` into the Dashboard layout in `packages/frontend/src/pages/DashboardPage.jsx` alongside the session selector hero and Tracks card; ensure responsive grid layout using Tailwind
 
 **Checkpoint**: User Story 3 complete. Dashboard shows all four sections: session selector, recent sessions, Tracks card, standings + upcoming race.
 
@@ -84,10 +84,10 @@
 
 **Purpose**: Unit tests, E2E test, and final layout polish.
 
-- [ ] T012 [P] Write unit tests for `routeForSessionType` in `packages/frontend/src/__tests__/DashboardPage.test.jsx` — verify correct route returned for each session type including edge cases
-- [ ] T013 [P] Write unit tests for `DashboardPage` render in `packages/frontend/src/__tests__/DashboardPage.test.jsx` — verify session selector button renders, Tracks card renders, and loading states show correctly when hooks return pending
-- [ ] T014 [P] Create Playwright Page Object `tests/e2e/pages/DashboardPage.js` with selectors and helper methods for: session selector button, recent sessions, Tracks card link
-- [ ] T015 Write E2E test `tests/e2e/specs/dashboard-navigation.spec.js` — journey: open app at `/`, select Race session via Dashboard, assert navigation to `/race`; select Qualifying session, assert `/qualifying`; click Tracks card, assert `/track`
+- [x] T012 [P] Write unit tests for `routeForSessionType` in `packages/frontend/src/__tests__/DashboardPage.test.jsx` — verify correct route returned for each session type including edge cases
+- [x] T013 [P] Write unit tests for `DashboardPage` render in `packages/frontend/src/__tests__/DashboardPage.test.jsx` — verify session selector button renders, Tracks card renders, and loading states show correctly when hooks return pending
+- [x] T014 [P] Create Playwright Page Object `tests/e2e/pages/DashboardPage.js` with selectors and helper methods for: session selector button, recent sessions, Tracks card link
+- [x] T015 Write E2E test `tests/e2e/specs/dashboard-navigation.spec.js` — journey: open app at `/`, select Race session via Dashboard, assert navigation to `/race`; select Qualifying session, assert `/qualifying`; click Tracks card, assert `/track`
 
 ---
 

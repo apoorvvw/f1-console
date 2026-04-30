@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import NavBar from './NavBar.jsx';
-import RecentSessions from '../session/RecentSessions.jsx';
 import SessionSelector from '../session/SessionSelector.jsx';
 
 export default function AppShell({ children }) {
@@ -30,13 +29,8 @@ export default function AppShell({ children }) {
       {/* ── Navbar ── */}
       <NavBar onSessionClick={() => setSelectorOpen(true)} />
 
-      {/* ── Recent Sessions bar ── */}
-      <div className="relative z-10 hidden md:flex items-center gap-2 px-6 py-2 border-b border-white/5 bg-black/40 backdrop-blur-sm mt-[72px]">
-        <RecentSessions />
-      </div>
-
       {/* ── Main content ── */}
-      <main className="relative z-10 px-4 py-6 md:px-8 md:py-8 md:mt-0 mt-[72px]">
+      <main className="relative z-10 px-4 py-6 md:px-8 md:py-8 mt-[72px]">
         {children}
       </main>
 

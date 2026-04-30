@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSessionContext } from '../../context/SessionContext.jsx';
 
 const NAV_TABS = [
+  { label: 'Dashboard', path: '/', exact: true },
   { label: 'Race', path: '/race' },
   { label: 'Track', path: '/track' },
   { label: 'Qualifying', path: '/qualifying' },
@@ -35,7 +36,7 @@ export default function NavBar({ onSessionClick }) {
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-1">
             {NAV_TABS.map((tab) => {
-              const active = location.pathname.startsWith(tab.path);
+              const active = tab.exact ? location.pathname === tab.path : location.pathname.startsWith(tab.path);
               return (
                 <Link
                   key={tab.path}
@@ -57,7 +58,7 @@ export default function NavBar({ onSessionClick }) {
           <div className="flex items-center gap-3">
             <button
               onClick={onSessionClick}
-              className="shiny-cta hidden md:inline-flex items-center gap-2 max-w-[200px]"
+              className="hidden md:inline-flex items-center gap-2 max-w-[200px] px-4 py-1.5 rounded-lg text-sm font-medium border border-white/15 bg-white/5 text-white/80 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200 truncate"
               title={sessionLabel}
             >
               <span className="truncate">{sessionLabel}</span>
@@ -113,7 +114,7 @@ export default function NavBar({ onSessionClick }) {
 
         <nav className="flex flex-col gap-1 p-4 flex-1">
           {NAV_TABS.map((tab) => {
-            const active = location.pathname.startsWith(tab.path);
+            const active = tab.exact ? location.pathname === tab.path : location.pathname.startsWith(tab.path);
             return (
               <Link
                 key={tab.path}
@@ -136,7 +137,7 @@ export default function NavBar({ onSessionClick }) {
         <div className="p-4 border-t border-white/10">
           <button
             onClick={() => { setDrawerOpen(false); onSessionClick(); }}
-            className="w-full shiny-cta text-center"
+            className="w-full px-4 py-2.5 rounded-xl text-sm font-medium border border-white/15 bg-white/5 text-white/80 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200 text-center"
           >
             {sessionLabel}
           </button>
