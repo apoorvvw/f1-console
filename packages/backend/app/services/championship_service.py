@@ -13,9 +13,13 @@ def get_championship_standings(year: int, round_number: int) -> dict:
     standings = ergast.get_driver_standings(season=year, round=round_number)
     content = standings.content[0]
 
+    schedule = fastf1.get_event_schedule(year)
+    total_rounds = len(schedule)
+
     return {
         "year": year,
         "round": round_number,
+        "total_rounds": total_rounds,
         "standings": [
             {
                 "position": int(row["position"]),
