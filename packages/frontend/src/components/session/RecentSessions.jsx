@@ -1,6 +1,3 @@
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { useSessionContext } from '../../context/SessionContext.jsx';
 
 export default function RecentSessions() {
@@ -9,19 +6,20 @@ export default function RecentSessions() {
   if (!recentSessions.length) return null;
 
   return (
-    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 0.5, alignItems: 'center' }}>
-      <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className="text-xs text-white/35 font-medium shrink-0 tracking-wide uppercase">
         Recent:
-      </Typography>
+      </span>
       {recentSessions.map((s) => (
-        <Chip
+        <button
           key={`${s.year}-${s.event}-${s.sessionType}`}
-          label={`${s.event} ${s.year} – ${s.sessionType}`}
-          size="small"
           onClick={() => setActiveSession(s)}
-          clickable
-        />
+          className="px-3 py-1 rounded-full text-xs font-medium border border-white/10 bg-white/5 text-white/60 hover:text-white hover:border-white/20 hover:bg-white/10 transition-all duration-200"
+        >
+          {s.event} {s.year} – {s.sessionType}
+        </button>
       ))}
-    </Stack>
+    </div>
   );
 }
+
