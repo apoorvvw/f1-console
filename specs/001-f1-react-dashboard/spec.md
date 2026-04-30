@@ -200,6 +200,6 @@ A user can easily navigate between sessions — browsing available years, Grand 
 - The React frontend communicates only with the local backend; no direct browser-to-FastF1 calls are made.
 - Live/real-time session data streaming is out of scope; the dashboard displays finalized historical session data only.
 - Authentication and user accounts are out of scope for this version; the dashboard is a single-user local tool.
-- The backend API is assumed to run on port 3030 and the frontend on port 3000, configurable via environment variables.
+- The backend API is assumed to run on port 8000 and the frontend on port 3000, configurable via environment variables.
 - Mobile support targets read-only viewing; complex interactions (multi-driver comparison overlays) are optimized for desktop.
 - Team colors for driver identification are sourced from a maintained static mapping; official FastF1 color data is used where available.

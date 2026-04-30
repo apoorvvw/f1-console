@@ -9,14 +9,14 @@ export default function RecentSessions() {
   if (!recentSessions.length) return null;
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center" sx={{ flexWrap: 'wrap', gap: 0.5 }}>
+    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 0.5, alignItems: 'center' }}>
       <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
         Recent:
       </Typography>
       {recentSessions.map((s) => (
         <Chip
           key={`${s.year}-${s.event}-${s.sessionType}`}
-          label={`${s.year} ${s.event} – ${s.sessionType}`}
+          label={`${s.event} ${s.year} – ${s.sessionType}`}
           size="small"
           onClick={() => setActiveSession(s)}
           clickable

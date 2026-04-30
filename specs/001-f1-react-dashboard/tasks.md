@@ -22,7 +22,7 @@
 - [X] T005 [P] Create `packages/frontend/src/setupTests.js`: import `@testing-library/jest-dom` and `vitest-canvas-mock`
 - [X] T006 [P] Configure ESLint in `packages/frontend/eslint.config.js` with `eslint-plugin-react` and `eslint-plugin-react-hooks` rules; enforce 2-space indent and 100-char line limit
 - [X] T007 [P] Configure Prettier in `packages/frontend/.prettierrc`: `{ "singleQuote": true, "semi": true, "printWidth": 100, "tabWidth": 2 }`
-- [X] T008 [P] Create `packages/frontend/.env` with `VITE_API_BASE_URL=http://localhost:3030`
+- [X] T008 [P] Create `packages/frontend/.env` with `VITE_API_BASE_URL=http://localhost:8000`
 - [X] T009 Add CORS middleware to `packages/backend/app/main.py`: import `CORSMiddleware` from `fastapi.middleware.cors`, allow `http://localhost:3000` (and `CORS_ORIGINS` env var) with all headers and methods
 
 ---

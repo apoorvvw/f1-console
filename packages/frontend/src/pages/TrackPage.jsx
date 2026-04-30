@@ -51,12 +51,12 @@ export default function TrackPage() {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Track Visualization — {year} {event} ({sessionType})
+        Track Visualization — {event} ({year})
       </Typography>
 
       <Grid container spacing={2}>
         {/* Sidebar */}
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="subtitle2" gutterBottom>
               Driver
@@ -70,9 +70,9 @@ export default function TrackPage() {
                 onChange={(e) => { setSelectedDriver(e.target.value); setSelectedLap(null); }}
               >
                 <MenuItem value="">— Select —</MenuItem>
-                {drivers.map((d) => (
-                  <MenuItem key={d} value={d}>
-                    {d}
+                {drivers.map((driver) => (
+                  <MenuItem key={driver.abbreviation} value={driver.abbreviation}>
+                    {driver.abbreviation} — {driver.full_name}
                   </MenuItem>
                 ))}
               </Select>
@@ -114,7 +114,7 @@ export default function TrackPage() {
         </Grid>
 
         {/* Map area */}
-        <Grid item xs={12} md={9}>
+        <Grid size={{ xs: 12, md: 9 }}>
           <Paper sx={{ p: 1 }}>
             {telError && <Alert severity="error">{telError.message}</Alert>}
             {!selectedDriver && !telLoading && (

@@ -16,7 +16,7 @@ export default function LapTimesPage() {
   const { year, event, sessionType } = activeSession ?? {};
 
   const { data: sessionInfo } = useSessionInfo(year, event, sessionType);
-  const drivers = sessionInfo?.drivers ?? [];
+  const drivers = (sessionInfo?.drivers ?? []).map((d) => d.abbreviation);
   const maxLap = sessionInfo?.total_laps ?? 70;
 
   const [filters, setFilters] = useState({
@@ -46,7 +46,7 @@ export default function LapTimesPage() {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Lap Times — {year} {event} ({sessionType})
+        Lap Times — {event} ({year})
       </Typography>
 
       <Paper sx={{ p: 2, mb: 2 }}>
@@ -58,7 +58,7 @@ export default function LapTimesPage() {
       </Paper>
 
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="subtitle1" gutterBottom>
               Lap Time Distribution
@@ -72,7 +72,7 @@ export default function LapTimesPage() {
           </Paper>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="subtitle1" gutterBottom>
               Driver Comparison

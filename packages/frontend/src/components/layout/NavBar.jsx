@@ -56,7 +56,7 @@ export default function NavBar({ onSessionClick }) {
         <Tabs
           value={currentTab === -1 ? false : currentTab}
           textColor="inherit"
-          TabIndicatorProps={{ style: { backgroundColor: '#ff9800' } }}
+          slotProps={{ indicator: { style: { backgroundColor: '#ff9800' } } }}
           sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1 }}
         >
           {NAV_TABS.map((tab) => (

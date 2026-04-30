@@ -9,7 +9,7 @@ import RoundSelector from '../components/championship/RoundSelector.jsx';
 import StandingsTable from '../components/championship/StandingsTable.jsx';
 import ScenarioPanel from '../components/championship/ScenarioPanel.jsx';
 
-const DEFAULT_YEAR = new Date().getFullYear();
+const DEFAULT_YEAR = 2025;
 
 export default function ChampionshipPage() {
   const [year] = useState(DEFAULT_YEAR);

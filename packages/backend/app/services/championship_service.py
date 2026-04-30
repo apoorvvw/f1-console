@@ -22,11 +22,11 @@ def get_championship_standings(year: int, round_number: int) -> dict:
         "total_rounds": total_rounds,
         "standings": [
             {
-                "position": int(row["position"]),
+                "position": int(row["position"]) if row["position"] == row["position"] else 0,
                 "driver": f"{row['givenName']} {row['familyName']}",
                 "constructor": row["constructorNames"][0] if row["constructorNames"] else "",
-                "points": float(row["points"]),
-                "wins": int(row["wins"]),
+                "points": float(row["points"]) if row["points"] == row["points"] else 0.0,
+                "wins": int(row["wins"]) if row["wins"] == row["wins"] else 0,
             }
             for _, row in content.iterrows()
         ],
