@@ -1,4 +1,5 @@
 import pandas as pd
+import fastf1.plotting
 from fastf1.core import Laps
 from typing import Optional
 
@@ -52,12 +53,17 @@ def get_qualifying_results(year: int, event: str) -> dict:
         driver_info = session.get_driver(lap["Driver"])
         delta = (lap["LapTime"] - pole_time).total_seconds()
         drv_q = q_times.get(lap["Driver"], {})
+        try:
+            team_color = fastf1.plotting.get_team_color(lap["Team"], session=session)
+        except Exception:
+            team_color = "#808080"
         results.append(
             {
                 "position": pos,
                 "driver": lap["Driver"],
                 "full_name": driver_info.get("FullName", ""),
                 "team": driver_info.get("TeamName", ""),
+                "team_color": team_color,
                 "lap_time_seconds": lap["LapTime"].total_seconds(),
                 "delta_to_pole_seconds": round(delta, 3),
                 "q1_seconds": drv_q.get("q1_seconds"),

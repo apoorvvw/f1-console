@@ -17,9 +17,9 @@
 **Purpose**: Minimal wiring changes needed before any user story work begins.  
 No new packages, project structure, or framework setup is required — the project already exists.
 
-- [ ] T001 Remove `DriverDetailPanel.jsx` from `packages/frontend/src/components/qualifying/DriverDetailPanel.jsx` (delete file)
+- [x] T001 Remove `DriverDetailPanel.jsx` from `packages/frontend/src/components/qualifying/DriverDetailPanel.jsx` (delete file). After deletion, confirm no remaining imports via `grep -r 'DriverDetailPanel' packages/frontend/src`.
 
-**Checkpoint**: Dead component removed; no orphan imports remain (they will be cleaned up in T011).
+**Checkpoint**: Dead component removed; no orphan imports remain (the `DriverDetailPanel` import in `QualifyingPage.jsx` is cleaned up in T006).
 
 ---
 
@@ -29,10 +29,11 @@ No new packages, project structure, or framework setup is required — the proje
 
 **⚠️ CRITICAL**: Phase 3 (QualifyingDeltaChart) cannot render correct team colours until this is shipped.
 
-- [ ] T002 Add `import fastf1.plotting` and `team_color` field to `get_qualifying_results` in `packages/backend/app/services/qualifying_service.py`: call `fastf1.plotting.get_team_color(lap["Team"], session=session)` inside `try/except`, fallback `"#808080"`; add `"team_color": team_color` to each result dict
-- [ ] T003 [P] Add `team_color` assertion to backend unit test in `packages/backend/__tests__/unit/test_services.py`: mock qualifying results; assert each result contains a non-empty `team_color` string matching `^#[0-9A-Fa-f]{6}$` or `"#808080"`
+- [x] T002 Add `import fastf1.plotting` and `team_color` field to `get_qualifying_results` in `packages/backend/app/services/qualifying_service.py`: call `fastf1.plotting.get_team_color(lap["Team"], session=session)` inside `try/except`, fallback `"#808080"`; add `"team_color": team_color` to each result dict
+- [x] T003 [P] Add `team_color` assertion to backend unit test in `packages/backend/__tests__/unit/test_services.py`: mock qualifying results; assert each result contains a non-empty `team_color` string matching `^#[0-9A-Fa-f]{6}$` or `"#808080"`
+- [x] T003b [P] Update backend integration test in `packages/backend/__tests__/integration/test_api.py`: in the existing qualifying endpoint test, assert that each driver entry in the response JSON contains a `team_color` key whose value matches `^#[0-9A-Fa-f]{6}$`
 
-**Checkpoint**: `GET /api/qualifying/{year}/{event}` returns `team_color` per driver. Backend tests pass.
+**Checkpoint**: `GET /api/qualifying/{year}/{event}` returns `team_color` per driver. Backend unit and integration tests pass.
 
 ---
 
@@ -44,9 +45,9 @@ No new packages, project structure, or framework setup is required — the proje
 
 ### Implementation for User Story 1
 
-- [ ] T004 [US1] Create `packages/frontend/src/components/qualifying/QualifyingDeltaChart.jsx`: SVG component with `ResizeObserver` for responsive width; accepts `results`, `selectedDriver`, `onDriverSelect`, `roundFilter`, `isLoading` props; computes `chartData` (sorted by delta) from `results` filtered/referenced per `roundFilter`; renders one `<rect>` bar per driver coloured by `team_color`, `<text>` driver abbreviation, `<text>` Δ label; each bar `<g>` has `role="button"`, `aria-label`, `aria-pressed`; selected driver bar gets highlight rect and border; loading state shows `<Skeleton>`; empty state shows a note when no bars for selected round
-- [ ] T005 [P] [US1] Update `QualifyingTable.jsx` in `packages/frontend/src/components/qualifying/QualifyingTable.jsx`: add `selectedDriver` prop; apply `'q-selected-row'` CSS class to the row whose `driver` field matches `selectedDriver?.driver`; add MUI DataGrid `sx` rule `'& .q-selected-row': { backgroundColor: 'rgba(25,118,210,0.12)', fontWeight: 700 }`
-- [ ] T006 [US1] Update `packages/frontend/src/pages/QualifyingPage.jsx`: replace existing single-card layout with three-section layout — (1) full-width `<Card>` containing `RoundFilter` + `QualifyingTable`; (2) two-column responsive row (`grid grid-cols-1 md:grid-cols-2 gap-4`) — left column: `<Card>` containing `QualifyingDeltaChart`; right column: placeholder Card; wire `selectedDriver` state (`useState(null)`); pass `selectedDriver` and `onDriverSelect` to both `QualifyingTable` and `QualifyingDeltaChart`; remove `DriverDetailPanel` import; reset `selectedDriver` to `null` when `activeSession` changes (use `useEffect`)
+- [x] T004 [US1] Create `packages/frontend/src/components/qualifying/QualifyingDeltaChart.jsx`: SVG component with `ResizeObserver` for responsive width; accepts `results`, `selectedDriver`, `onDriverSelect`, `roundFilter`, `isLoading` props; computes `chartData` (sorted by delta) from `results` filtered/referenced per `roundFilter`; renders one `<rect>` bar per driver coloured by `team_color`, `<text>` driver abbreviation, `<text>` Δ label; each bar `<g>` has `role="button"`, `aria-label`, `aria-pressed`; selected driver bar gets highlight rect and border; loading state shows `<Skeleton>`; empty state shows a note when no bars for selected round
+- [x] T005 [P] [US1] Update `QualifyingTable.jsx` in `packages/frontend/src/components/qualifying/QualifyingTable.jsx`: add `selectedDriver` prop; apply `'q-selected-row'` CSS class to the row whose `driver` field matches `selectedDriver?.driver`; add MUI DataGrid `sx` rule `'& .q-selected-row': { backgroundColor: 'rgba(25,118,210,0.12)', fontWeight: 700 }`
+- [x] T006 [US1] Update `packages/frontend/src/pages/QualifyingPage.jsx`: replace existing single-card layout with three-section layout — (1) full-width `<Card>` containing `RoundFilter` + `QualifyingTable`; (2) two-column responsive row (`grid grid-cols-1 md:grid-cols-2 gap-4`) — left column: `<Card>` containing `QualifyingDeltaChart`; right column: placeholder Card; wire `selectedDriver` state (`useState(null)`); pass `selectedDriver` and `onDriverSelect` to both `QualifyingTable` and `QualifyingDeltaChart`; remove `DriverDetailPanel` import; reset `selectedDriver` to `null` when `activeSession` changes (use `useEffect`)
 
 **Checkpoint**: Delta chart renders with team colours; clicking a bar or table row highlights both; round filter updates both table and chart simultaneously; driver selection survives round filter change. User Story 1 is independently testable.
 
@@ -62,8 +63,8 @@ No new packages, project structure, or framework setup is required — the proje
 
 ### Verification tasks
 
-- [ ] T007 [US2] Verify in `QualifyingPage.jsx` that `onDriverSelect` passed to both `QualifyingDeltaChart` and `QualifyingTable` uses the toggle pattern: `(row) => setSelectedDriver(prev => prev?.driver === row?.driver ? null : row)`
-- [ ] T008 [P] [US2] Verify `QualifyingDeltaChart.jsx` passes `isSelected ? null : d.row` to `onDriverSelect` on bar click (deselect on re-click)
+- [x] T007 [US2] Verify in `QualifyingPage.jsx` that `onDriverSelect` passed to both `QualifyingDeltaChart` and `QualifyingTable` uses the toggle pattern: `(row) => setSelectedDriver(prev => prev?.driver === row?.driver ? null : row)`
+- [x] T008 [P] [US2] Verify `QualifyingDeltaChart.jsx` passes `isSelected ? null : d.row` to `onDriverSelect` on bar click (deselect on re-click)
 
 **Checkpoint**: All three User Story 2 acceptance scenarios pass when tested manually.
 
@@ -77,8 +78,8 @@ No new packages, project structure, or framework setup is required — the proje
 
 ### Implementation for User Story 3
 
-- [ ] T009 [US3] Create `packages/frontend/src/components/qualifying/DriverStatsCard.jsx`: accepts `driver` (full QualifyingResult row or null) prop; when `driver` is null renders nothing; when set renders: driver abbreviation + full name + team name header; Q1/Q2/Q3 text rows with `formatTime`; best lap + Δ to pole; Nivo `ResponsiveBar` mini chart (height 160px) with `data` = participating rounds only, `keys={['seconds']}`, `indexBy="round"`, `minValue` = min - 0.5, team colour fill, axis labels; port chart markup from deleted `DriverDetailPanel`
-- [ ] T010 [US3] Update right column in `packages/frontend/src/pages/QualifyingPage.jsx`: import `DriverStatsCard`, `TrackMap`, `TelemetryToggle`, `useLapTelemetry`, `useCornerAnnotations`; add `metric` state (default `'speed'`) and `showCorners` state (default `true`); right column Card renders: `<DriverStatsCard driver={selectedDriver} />`; then telemetry error alert if error; then placeholder div if `!selectedDriver`; then `<TrackMap points={telemetry?.telemetry} corners={cornersData?.corners} metric={metric} showCorners={showCorners} isLoading={telLoading} />`; `useLapTelemetry` called with `year, event, 'Q', selectedDriver?.driver ?? null, null`; `useCornerAnnotations` called with `year, event`
+- [x] T009 [US3] Create `packages/frontend/src/components/qualifying/DriverStatsCard.jsx`: accepts `driver` (full QualifyingResult row or null) prop; when `driver` is null renders nothing; when set renders: driver abbreviation + full name + team name header; Q1/Q2/Q3 text rows with `formatTime`; best lap + Δ to pole; Nivo `ResponsiveBar` mini chart (height 160px) with `data` = participating rounds only, `keys={['seconds']}`, `indexBy="round"`, `minValue` = min - 0.5, team colour fill, axis labels; port chart markup from deleted `DriverDetailPanel`
+- [x] T010 [US3] Update right column in `packages/frontend/src/pages/QualifyingPage.jsx`: import `DriverStatsCard`, `TrackMap`, `TelemetryToggle`, `useLapTelemetry`, `useCornerAnnotations`; add `metric` state (default `'speed'`) and `showCorners` state (default `true`); right column Card renders: `<DriverStatsCard driver={selectedDriver} />`; then telemetry error alert if error; then placeholder div if `!selectedDriver`; then `<TrackMap points={telemetry?.telemetry} corners={cornersData?.corners} metric={metric} showCorners={showCorners} isLoading={telLoading} />`; `useLapTelemetry` called with `year, event, 'Q', selectedDriver?.driver ?? null, null`; `useCornerAnnotations` called with `year, event`
 
 **Checkpoint**: Selecting a driver shows stats card + track map. Deselecting hides both. Telemetry error shows inline message without breaking page. Loading shows skeleton in map area.
 
@@ -92,7 +93,7 @@ No new packages, project structure, or framework setup is required — the proje
 
 ### Implementation for User Story 4
 
-- [ ] T011 [US4] Add metric toggle controls to right column in `packages/frontend/src/pages/QualifyingPage.jsx`: above `<TrackMap>`, render `<TelemetryToggle value={metric} onChange={setMetric} />` (already imported in T010); label it with a `text-xs text-white/40 uppercase` heading "Overlay metric"; ensure `metric` state is NOT reset when `selectedDriver` changes
+- [x] T011 [US4] Add metric toggle controls to right column in `packages/frontend/src/pages/QualifyingPage.jsx`: above `<TrackMap>`, render `<TelemetryToggle value={metric} onChange={setMetric} />` (already imported in T010); label it with a `text-xs text-white/40 uppercase` heading "Overlay metric"; ensure `metric` state is NOT reset when `selectedDriver` changes
 
 **Checkpoint**: Metric toggle is visible and functional when a driver is selected. Switching drivers keeps the chosen metric.
 
@@ -106,7 +107,7 @@ No new packages, project structure, or framework setup is required — the proje
 
 ### Implementation for User Story 5
 
-- [ ] T012 [US5] Add corner annotations toggle to right column in `packages/frontend/src/pages/QualifyingPage.jsx`: below `<TelemetryToggle>`, render the same toggle switch pattern used in `TrackPage.jsx` (inline `onClick` toggles `showCorners` boolean, styled with conditional classes); label "Corner annotations"; pass `showCorners` prop to `<TrackMap>`
+- [x] T012 [US5] Add corner annotations toggle to right column in `packages/frontend/src/pages/QualifyingPage.jsx`: below `<TelemetryToggle>`, render the same toggle switch pattern used in `TrackPage.jsx` (inline `onClick` toggles `showCorners` boolean, styled with conditional classes); label "Corner annotations"; pass `showCorners` prop to `<TrackMap>`
 
 **Checkpoint**: Corner circles appear/disappear client-side with no API call.
 
@@ -116,10 +117,13 @@ No new packages, project structure, or framework setup is required — the proje
 
 **Purpose**: Responsive layout, edge case handling, and E2E test update.
 
-- [ ] T013 [P] Verify responsive stacking in `QualifyingPage.jsx`: confirm the two-column row uses `grid grid-cols-1 md:grid-cols-2` (or `lg:grid-cols-2`) breakpoint so layout stacks on screens < 960px; manually test at 375px viewport width
-- [ ] T014 [P] Add `useEffect` in `QualifyingPage.jsx` that resets `selectedDriver` to `null` and `metric` to `'speed'` when `activeSession` changes (dependency array: `[activeSession]`)
-- [ ] T015 [P] Handle missing-round edge case in `QualifyingDeltaChart.jsx`: when `roundFilter !== 'All'` and the selected driver has no bar in the current round's data, render a small informational note below the chart: "Selected driver did not participate in {roundFilter}"
-- [ ] T016 [P] Update E2E test `tests/e2e/specs/qualifying-results.spec.js`: add assertions for — delta chart is visible after data loads; clicking a chart bar highlights a table row; right column track map is visible after bar click; metric toggle buttons are visible; corner annotations toggle is visible
+- [x] T013 [P] Verify responsive stacking in `QualifyingPage.jsx`: confirm the two-column row uses `grid grid-cols-1 md:grid-cols-2` (or `lg:grid-cols-2`) breakpoint so layout stacks on screens < 960px; manually test at 375px viewport width
+- [x] T014 [P] Add `useEffect` in `QualifyingPage.jsx` that resets `selectedDriver` to `null` and `metric` to `'speed'` when `activeSession` changes (dependency array: `[activeSession]`)
+- [x] T015 [P] Handle missing-round edge case in `QualifyingDeltaChart.jsx`: when `roundFilter !== 'All'` and the selected driver has no bar in the current round's data, render a small informational note below the chart: "Selected driver did not participate in {roundFilter}"
+- [x] T016 [P] Create Page Object `tests/e2e/pages/QualifyingResultsPage.js` encapsulating selectors and actions: `deltaChart()`, `chartBar(driverAbbr)`, `tableRow(driverAbbr)`, `trackMapRegion()`, `metricToggleButtons()`, `cornerAnnotationsToggle()`, `clickBar(driverAbbr)`, `clickRow(driverAbbr)` methods following the same POM pattern as `SessionSelectorPage.js`
+- [x] T016b [P] Update E2E test `tests/e2e/specs/qualifying-results.spec.js` using `QualifyingResultsPage`: add assertions for — delta chart is visible after data loads; clicking a chart bar highlights the corresponding table row; right column track map is visible after bar click; FR-010 tooltip appears on track map hover; metric toggle buttons are visible; corner annotations toggle is visible
+- [x] T017 [P] Create frontend unit test `packages/frontend/src/__tests__/QualifyingDeltaChart.test.jsx`: mock `results` array with 3 drivers; assert chart renders one `<g role="button">` per driver; assert `aria-pressed="true"` on the selected driver's bar; assert `onDriverSelect` is called on bar click; assert clicking the already-selected driver calls `onDriverSelect` with null (deselect); assert loading state renders `<Skeleton>`; assert empty state renders informational note when no bars for selected round
+- [x] T018 [P] Create frontend unit test `packages/frontend/src/__tests__/DriverStatsCard.test.jsx`: assert component renders nothing when `driver` prop is null; assert Q1/Q2/Q3 time rows appear when driver is set; assert mini Nivo bar chart is present with only participated rounds; assert driver abbreviation, full name, and team name headings render correctly
 
 ---
 
@@ -130,6 +134,7 @@ T001 (delete DriverDetailPanel)
   └─ T006 (QualifyingPage — no more import)
 
 T002 (backend team_color)
+  ├─ T003b (backend integration test — parallel)
   └─ T004 (QualifyingDeltaChart — uses team_color from results)
 
 T004 (QualifyingDeltaChart) + T005 (QualifyingTable selectedDriver) + T006 (QualifyingPage layout)
@@ -146,7 +151,11 @@ T010–T012
   └─ T013 (responsive check)
   └─ T014 (session change reset)
   └─ T015 (missing-round edge case)
-  └─ T016 (E2E test update)
+  └─ T016 (E2E POM class)
+       └─ T016b (E2E test update — uses POM)
+
+T004 (QualifyingDeltaChart) → T017 (frontend unit test — QualifyingDeltaChart)
+T009 (DriverStatsCard) → T018 (frontend unit test — DriverStatsCard)
 
 T003 (backend unit test) — parallel to T002, no blockers
 ```
@@ -156,13 +165,16 @@ T003 (backend unit test) — parallel to T002, no blockers
 ## Parallel Execution Opportunities
 
 **Group A** (after T002 is done, can run simultaneously):
-- T003 [backend unit test] + T004 [QualifyingDeltaChart] + T005 [QualifyingTable row highlight]
+- T003 [backend unit test] + T003b [backend integration test] + T004 [QualifyingDeltaChart] + T005 [QualifyingTable row highlight]
 
 **Group B** (after T004 + T005 + T006 are done):
 - T007 + T008 [US2 verification tasks] — read-only checks, no file conflicts
 
 **Group C** (after T010 is done, independent files):
-- T013 [responsive] + T014 [session reset] + T015 [missing-round note] + T016 [E2E]
+- T013 [responsive] + T014 [session reset] + T015 [missing-round note] + T016 [E2E POM] → T016b [E2E test]
+
+**Group D** (after T004 and T009 are done respectively):
+- T017 [QualifyingDeltaChart unit test] + T018 [DriverStatsCard unit test]
 
 ---
 
@@ -188,14 +200,14 @@ Suggested delivery order for a single developer:
 | Phase | Story | Tasks | Notes |
 |-------|-------|-------|-------|
 | Phase 1 — Setup | — | 1 | Delete `DriverDetailPanel.jsx` |
-| Phase 2 — Foundational | — | 2 | Backend `team_color` + unit test |
+| Phase 2 — Foundational | — | 3 | Backend `team_color` + unit test + integration test (T002, T003, T003b) |
 | Phase 3 — Delta Chart | US1 | 3 | New component + table update + page layout |
 | Phase 4 — Driver Selection | US2 | 2 | Verification of toggle wiring |
 | Phase 5 — Track Map | US3 | 2 | `DriverStatsCard` + right column map |
 | Phase 6 — Metric Toggle | US4 | 1 | Single control addition |
 | Phase 7 — Corner Toggle | US5 | 1 | Single control addition |
-| Phase 8 — Polish | — | 4 | Responsive, reset, edge case, E2E |
-| **Total** | | **16** | |
+| Phase 8 — Polish | — | 8 | Responsive, reset, edge case, E2E POM (T016), E2E test (T016b), frontend unit tests (T017, T018) |
+| **Total** | | **21** | |
 
 **Parallel opportunities**: 4 identified (Groups A, B, C + backend unit test)  
 **Independent test criteria**: Each of US1–US5 has a stated independent test in the phases above  
