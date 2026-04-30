@@ -5,23 +5,6 @@ from app.services import lap_time_service
 router = APIRouter()
 
 
-@router.get("/{year}/{event}/distribution")
-def get_lap_times_distribution(
-    year: int,
-    event: str,
-    top_n_drivers: int = Query(default=10, ge=1, le=20),
-):
-    """
-    Return lap time distribution data for the top N finishers in a race.
-
-    Slow laps (pit stops, safety car periods) are filtered out automatically.
-    """
-    try:
-        return lap_time_service.get_lap_times_distribution(year, event, top_n_drivers)
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
-
-
 @router.get("/{year}/{event}/{session_type}/comparison")
 def get_driver_lap_comparison(
     year: int,

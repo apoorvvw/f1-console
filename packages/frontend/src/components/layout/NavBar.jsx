@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSessionContext } from '../../context/SessionContext.jsx';
 
 const NAV_TABS = [
-  { label: 'Lap Times', path: '/lap-times' },
+  { label: 'Race', path: '/race' },
   { label: 'Track', path: '/track' },
   { label: 'Qualifying', path: '/qualifying' },
   { label: 'Championship', path: '/championship' },

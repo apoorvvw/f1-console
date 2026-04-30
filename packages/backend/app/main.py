@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import FASTF1_CACHE_DIR
-from app.routers import championship, lap_times, qualifying, sessions, track
+from app.routers import championship, lap_times, qualifying, race, sessions, track
 
 os.makedirs(FASTF1_CACHE_DIR, exist_ok=True)
 fastf1.Cache.enable_cache(FASTF1_CACHE_DIR)
@@ -31,6 +31,7 @@ app.include_router(lap_times.router, prefix="/api/lap-times", tags=["lap-times"]
 app.include_router(qualifying.router, prefix="/api/qualifying", tags=["qualifying"])
 app.include_router(championship.router, prefix="/api/championship", tags=["championship"])
 app.include_router(track.router, prefix="/api/track", tags=["track"])
+app.include_router(race.router, prefix="/api/race", tags=["race"])
 
 
 @app.get("/health")
