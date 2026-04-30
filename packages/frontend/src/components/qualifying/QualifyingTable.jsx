@@ -57,7 +57,6 @@ export default function QualifyingTable({ results, isLoading, roundFilter, onDri
     <Box
       sx={{
         height: 500,
-        overflow: 'hidden',
         '& .q-null-cell': { color: '#bdbdbd' },
         '& .q-active-col': { backgroundColor: 'rgba(25,118,210,0.08)', fontWeight: 700 },
         '& .q-dim-col': { color: '#9e9e9e' },

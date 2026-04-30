@@ -144,7 +144,7 @@ export default function TrackMap({ points, corners, metric, showCorners, isLoadi
   return (
     <Box
       ref={containerRef}
-      sx={{ position: 'relative', width: '100%', height }}
+      sx={{ position: 'relative', width: '100%', height, overflow: 'hidden' }}
     >
       <canvas
         ref={canvasRef}
