@@ -84,7 +84,7 @@ export default function PositionChangesChart({
       <ResponsiveLine
         data={styledSeries}
         theme={darkTheme}
-        margin={{ top: 12, right: 120, bottom: 50, left: 42 }}
+        margin={{ top: 12, right: 16, bottom: 50, left: 42 }}
         xScale={{ type: 'linear', min: 1, max: 'auto' }}
         yScale={{ type: 'linear', min: 1, max: 20, reverse: true }}
         gridYValues={[1, 5, 10, 15, 20]}
@@ -131,7 +131,6 @@ export default function PositionChangesChart({
             )),
           'slices',
           'crosshair',
-          'legends',
           'mesh',
         ]}
         useMesh
@@ -153,19 +152,7 @@ export default function PositionChangesChart({
             Position: <strong>P{point.data.y}</strong>
           </div>
         )}
-        legends={[
-          {
-            anchor: 'right',
-            direction: 'column',
-            translateX: 112,
-            itemWidth: 100,
-            itemHeight: 16,
-            symbolSize: 10,
-            symbolShape: 'circle',
-            itemTextColor: 'rgba(255,255,255,0.45)',
-            onClick: (datum) => onDriverToggle?.(datum.id),
-          },
-        ]}
+        legends={[]}
       />
     </div>
   );

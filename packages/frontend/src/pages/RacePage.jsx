@@ -8,6 +8,7 @@ import PositionChangesChart from '../components/race/PositionChangesChart.jsx';
 import TeamPaceChart from '../components/race/TeamPaceChart.jsx';
 import DriverLapScatterplot from '../components/race/DriverLapScatterplot.jsx';
 import DriverComparisonChart from '../components/race/DriverComparisonChart.jsx';
+import DriverSelector from '../components/race/DriverSelector.jsx';
 
 export default function RacePage() {
   const { activeSession } = useSessionContext();
@@ -76,6 +77,13 @@ export default function RacePage() {
           </button>
         )}
       </div>
+
+      {/* Driver selector */}
+      <DriverSelector
+        drivers={positionData?.drivers ?? []}
+        selectedDrivers={selectedDrivers}
+        onDriverToggle={handleDriverToggle}
+      />
 
       {/* Top row: 2-column grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
