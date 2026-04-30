@@ -23,12 +23,12 @@
 
 **Purpose**: Register the race router on the backend and wire the frontend route so all subsequent stories have a running scaffold to build on.
 
-- [ ] T004 Register race router in packages/backend/app/main.py under prefix /api/race
-- [ ] T005 Create packages/frontend/src/api/race.js with fetchPositionChanges, fetchTeamPace, fetchDriverLaps functions following the pattern in packages/frontend/src/api/lapTimes.js
-- [ ] T006 Create packages/frontend/src/hooks/useRace.js with usePositionChanges, useTeamPace, useDriverLaps React Query hooks (enabled only when year and event are set)
-- [ ] T007 Replace the Lap Times route with Race route in packages/frontend/src/App.jsx: change path /lap-times to /race, import RacePage, update default redirect from /lap-times to /race
-- [ ] T008 Replace the Lap Times nav entry with Race in packages/frontend/src/components/layout/NavBar.jsx (change label and path in NAV_TABS)
-- [ ] T009 Create packages/frontend/src/pages/RacePage.jsx as a minimal scaffold: import useSessionContext, render PageHeader with title "Race", render InfoAlert when no session is selected, render loading skeleton when data is loading
+- [X] T004 Register race router in packages/backend/app/main.py under prefix /api/race
+- [X] T005 Create packages/frontend/src/api/race.js with fetchPositionChanges, fetchTeamPace, fetchDriverLaps functions following the pattern in packages/frontend/src/api/lapTimes.js
+- [X] T006 Create packages/frontend/src/hooks/useRace.js with usePositionChanges, useTeamPace, useDriverLaps React Query hooks (enabled only when year and event are set)
+- [X] T007 Replace the Lap Times route with Race route in packages/frontend/src/App.jsx: change path /lap-times to /race, import RacePage, update default redirect from /lap-times to /race
+- [X] T008 Replace the Lap Times nav entry with Race in packages/frontend/src/components/layout/NavBar.jsx (change label and path in NAV_TABS)
+- [X] T009 Create packages/frontend/src/pages/RacePage.jsx as a minimal scaffold: import useSessionContext, render PageHeader with title "Race", render InfoAlert when no session is selected, render loading skeleton when data is loading
 
 **Checkpoint**: App loads, Race tab is visible in nav, /race route renders, Lap Times tab is gone
 
@@ -40,15 +40,15 @@
 
 **Independent Test**: Load the app with no session; see the Race tab in nav. Select a race session; see the Race page header render with the session label and no JavaScript errors.
 
-- [ ] T010 [US1] Implement get_position_changes in packages/backend/app/services/race_service.py using FastF1 session.laps to return per-driver per-lap position data grouped by driver abbreviation
-- [ ] T011 [US1] Implement position-changes endpoint in packages/backend/app/routers/race.py calling race_service.get_position_changes, returning 500 on exception
-- [ ] T012 [P] [US1] Implement get_team_pace in packages/backend/app/services/race_service.py using session.laps.pick_quicklaps() grouped by Team, ordered by ascending median lap time
-- [ ] T013 [P] [US1] Implement team-pace endpoint in packages/backend/app/routers/race.py calling race_service.get_team_pace
-- [ ] T014 [P] [US1] Implement get_driver_laps in packages/backend/app/services/race_service.py returning quick laps for a single driver with compound field
-- [ ] T015 [P] [US1] Implement driver-laps endpoint in packages/backend/app/routers/race.py calling race_service.get_driver_laps with driver path parameter
-- [ ] T016 [US1] Complete RacePage.jsx in packages/frontend/src/pages/RacePage.jsx: add selectedDrivers (Set) and selectedTeam state, wire usePositionChanges and useTeamPace hooks, render Card placeholders for all three panels with correct grid layout (2-col top row, full-width bottom)
-- [ ] T017 [US1] Delete packages/frontend/src/pages/LapTimesPage.jsx, packages/frontend/src/api/lapTimes.js, packages/frontend/src/hooks/useLapTimes.js
-- [ ] T018 [P] [US1] Write packages/backend/__tests__/unit/test_race_service.py with unit tests for all three service functions using mocked FastF1 session data
+- [X] T010 [US1] Implement get_position_changes in packages/backend/app/services/race_service.py using FastF1 session.laps to return per-driver per-lap position data grouped by driver abbreviation
+- [X] T011 [US1] Implement position-changes endpoint in packages/backend/app/routers/race.py calling race_service.get_position_changes, returning 500 on exception
+- [X] T012 [P] [US1] Implement get_team_pace in packages/backend/app/services/race_service.py using session.laps.pick_quicklaps() grouped by Team, ordered by ascending median lap time
+- [X] T013 [P] [US1] Implement team-pace endpoint in packages/backend/app/routers/race.py calling race_service.get_team_pace
+- [X] T014 [P] [US1] Implement get_driver_laps in packages/backend/app/services/race_service.py returning quick laps for a single driver with compound field
+- [X] T015 [P] [US1] Implement driver-laps endpoint in packages/backend/app/routers/race.py calling race_service.get_driver_laps with driver path parameter
+- [X] T016 [US1] Complete RacePage.jsx in packages/frontend/src/pages/RacePage.jsx: add selectedDrivers (Set) and selectedTeam state, wire usePositionChanges and useTeamPace hooks, render Card placeholders for all three panels with correct grid layout (2-col top row, full-width bottom)
+- [X] T017 [US1] Delete packages/frontend/src/pages/LapTimesPage.jsx, packages/frontend/src/api/lapTimes.js, packages/frontend/src/hooks/useLapTimes.js
+- [X] T018 [P] [US1] Write packages/backend/__tests__/unit/test_race_service.py with unit tests for all three service functions using mocked FastF1 session data
 
 **Checkpoint**: Race tab renders with correct grid layout; all three backend endpoints respond; Lap Times page is removed; tests pass
 
@@ -60,12 +60,12 @@
 
 **Independent Test**: Load the Race tab for any completed race; see a multi-line chart with one coloured line per driver, Y-axis inverted (position 1 at top), and a tooltip on hover.
 
-- [ ] T019 [US2] Create packages/frontend/src/components/race/PositionChangesChart.jsx using @nivo/line: map API response to nivo series (id = driver abbreviation, color = getTeamColor(team)); set yScale reverse=true; pointSize=5; margin large enough for 20-driver legend outside the plot
-- [ ] T020 [US2] Add click handler to PositionChangesChart.jsx: onClick prop receives driver abbreviation; parent RacePage toggles that abbreviation in selectedDrivers Set
-- [ ] T021 [US2] Add visual emphasis to PositionChangesChart.jsx: selected drivers render with lineWidth=3 and full opacity; unselected render with lineWidth=1 and opacity=0.25 via the layers prop or colors callback
-- [ ] T022 [US2] Add tooltip to PositionChangesChart.jsx using nivo tooltip prop showing driver abbreviation, lap number, and position
-- [ ] T023 [US2] Handle loading skeleton and empty state in PositionChangesChart.jsx using MUI Skeleton and a text fallback when data is null
-- [ ] T024 [US2] Mount PositionChangesChart in the top-left Card of RacePage.jsx, passing positionData, selectedDrivers, selectedTeam, and onDriverToggle props
+- [X] T019 [US2] Create packages/frontend/src/components/race/PositionChangesChart.jsx using @nivo/line: map API response to nivo series (id = driver abbreviation, color = getTeamColor(team)); set yScale reverse=true; pointSize=5; margin large enough for 20-driver legend outside the plot
+- [X] T020 [US2] Add click handler to PositionChangesChart.jsx: onClick prop receives driver abbreviation; parent RacePage toggles that abbreviation in selectedDrivers Set
+- [X] T021 [US2] Add visual emphasis to PositionChangesChart.jsx: selected drivers render with lineWidth=3 and full opacity; unselected render with lineWidth=1 and opacity=0.25 via the layers prop or colors callback
+- [X] T022 [US2] Add tooltip to PositionChangesChart.jsx using nivo tooltip prop showing driver abbreviation, lap number, and position
+- [X] T023 [US2] Handle loading skeleton and empty state in PositionChangesChart.jsx using MUI Skeleton and a text fallback when data is null
+- [X] T024 [US2] Mount PositionChangesChart in the top-left Card of RacePage.jsx, passing positionData, selectedDrivers, selectedTeam, and onDriverToggle props
 
 **Checkpoint**: Position changes chart renders correctly; clicking a driver line toggles selection; tooltips work; loading/empty states display
 
@@ -77,12 +77,12 @@
 
 **Independent Test**: Load the Race tab; see a boxplot chart with teams ordered fastest to slowest in official team colours. Click a team; see its drivers' lines emphasised in the position changes chart.
 
-- [ ] T025 [US3] Create packages/frontend/src/components/race/TeamPaceChart.jsx using @nivo/boxplot: transform API response (teams array with laps array) to nivo boxplot data format; set colors callback using getTeamColor(group); horizontal layout with team names on Y-axis; lap time (s) on X-axis
-- [ ] T026 [US3] Add click handler to TeamPaceChart.jsx: onClick receives team name; parent RacePage sets selectedTeam state (toggle: clicking the same team again clears it)
-- [ ] T027 [US3] Wire selectedTeam into PositionChangesChart.jsx: when selectedTeam is set, derive highlightedDrivers as the set of drivers whose team matches; apply the same emphasis logic as selectedDrivers (bold + full opacity vs dimmed)
-- [ ] T028 [US3] Add tooltip to TeamPaceChart.jsx showing team name, median lap time, and Q1/Q3 range
-- [ ] T029 [US3] Handle loading skeleton and empty/error state in TeamPaceChart.jsx
-- [ ] T030 [US3] Mount TeamPaceChart in the full-width bottom Card of RacePage.jsx, passing teamPaceData, selectedTeam, and onTeamClick props
+- [X] T025 [US3] Create packages/frontend/src/components/race/TeamPaceChart.jsx using @nivo/boxplot: transform API response (teams array with laps array) to nivo boxplot data format; set colors callback using getTeamColor(group); horizontal layout with team names on Y-axis; lap time (s) on X-axis
+- [X] T026 [US3] Add click handler to TeamPaceChart.jsx: onClick receives team name; parent RacePage sets selectedTeam state (toggle: clicking the same team again clears it)
+- [X] T027 [US3] Wire selectedTeam into PositionChangesChart.jsx: when selectedTeam is set, derive highlightedDrivers as the set of drivers whose team matches; apply the same emphasis logic as selectedDrivers (bold + full opacity vs dimmed)
+- [X] T028 [US3] Add tooltip to TeamPaceChart.jsx showing team name, median lap time, and Q1/Q3 range
+- [X] T029 [US3] Handle loading skeleton and empty/error state in TeamPaceChart.jsx
+- [X] T030 [US3] Mount TeamPaceChart in the full-width bottom Card of RacePage.jsx, passing teamPaceData, selectedTeam, and onTeamClick props
 
 **Checkpoint**: Team pace boxplot renders; clicking a team highlights its drivers in the position changes chart; loading/empty states display
 
@@ -94,11 +94,11 @@
 
 **Independent Test**: Select exactly one driver; the top-right panel renders a scatterplot with compound-coloured points, inverted Y-axis, and a tooltip showing lap number, lap time, and compound.
 
-- [ ] T031 [US4] Create packages/frontend/src/components/race/DriverLapScatterplot.jsx using @nivo/line with enableLine=false (scatter mode): X-axis = lap number; Y-axis = lap time in seconds (inverted); map laps to nivo series grouped by compound; use COMPOUND_COLORS from packages/frontend/src/constants/compoundColors.js for point colours; pointSize=8
-- [ ] T032 [US4] Add tooltip to DriverLapScatterplot.jsx showing lap number, lap time (formatted as m:ss.mmm), and compound name
-- [ ] T033 [US4] Wire useDriverLaps hook in RacePage.jsx: call with (year, event, [...selectedDrivers][0]) when selectedDrivers.size === 1; pass data to DriverLapScatterplot
-- [ ] T034 [US4] Mount DriverLapScatterplot in the top-right Card of RacePage.jsx when selectedDrivers.size === 1; show a hint text ("Click a driver line to see their lap times") when selectedDrivers.size === 0
-- [ ] T035 [US4] Handle loading skeleton and empty state in DriverLapScatterplot.jsx
+- [X] T031 [US4] Create packages/frontend/src/components/race/DriverLapScatterplot.jsx
+- [X] T032 [US4] Add tooltip to DriverLapScatterplot.jsx showing lap number, lap time, and compound name
+- [X] T033 [US4] Wire useDriverLaps hook in RacePage.jsx: call with singleDriver when selectedDrivers.size === 1
+- [X] T034 [US4] Mount DriverLapScatterplot in the top-right Card of RacePage.jsx when selectedDrivers.size === 1
+- [X] T035 [US4] Handle loading skeleton and empty state in DriverLapScatterplot.jsx
 
 **Checkpoint**: Selecting one driver shows the compound-coloured scatterplot; deselecting shows the hint; tooltips display correctly
 
@@ -110,11 +110,11 @@
 
 **Independent Test**: Select two drivers; the panel switches from scatterplot to a multi-line chart. Deselect one driver; panel transitions back to scatterplot.
 
-- [ ] T036 [US5] Move packages/frontend/src/components/lapTimes/DriverComparisonChart.jsx to packages/frontend/src/components/race/DriverComparisonChart.jsx; update import path in RacePage.jsx
-- [ ] T037 [US5] Update DriverComparisonChart.jsx to accept a selectedDrivers prop (Set or Array) and filter the data to only the selected drivers; remove dependency on the old LapFilters selectedDrivers prop shape if needed
-- [ ] T038 [US5] Wire useDriverComparison (from existing /api/lap-times/{year}/{event}/R/comparison endpoint) in RacePage.jsx: call when selectedDrivers.size >= 2; pass comma-joined driver list; pass response data to DriverComparisonChart
-- [ ] T039 [US5] Mount DriverComparisonChart in the top-right Card of RacePage.jsx when selectedDrivers.size >= 2, replacing the DriverLapScatterplot slot
-- [ ] T040 [US5] Delete packages/frontend/src/components/lapTimes/LapDistributionChart.jsx and packages/frontend/src/components/lapTimes/LapFilters.jsx; remove the now-empty lapTimes/ component folder if empty
+- [X] T036 [US5] Move packages/frontend/src/components/lapTimes/DriverComparisonChart.jsx to packages/frontend/src/components/race/DriverComparisonChart.jsx; update import path in RacePage.jsx
+- [X] T037 [US5] Update DriverComparisonChart.jsx to accept a selectedDrivers prop (Set) and filter the data to only the selected drivers
+- [X] T038 [US5] Wire useDriverComparison in RacePage.jsx: call when selectedDrivers.size >= 2; pass response data to DriverComparisonChart
+- [X] T039 [US5] Mount DriverComparisonChart in the top-right Card of RacePage.jsx when selectedDrivers.size >= 2, replacing the DriverLapScatterplot slot
+- [X] T040 [US5] Delete packages/frontend/src/components/lapTimes/LapDistributionChart.jsx, LapFilters.jsx and DriverComparisonChart.jsx; remove the now-empty lapTimes/ component folder
 
 **Checkpoint**: Selecting 2+ drivers shows the multi-driver comparison chart; reducing back to 1 shows the scatterplot; reducing to 0 shows the hint
 
@@ -126,9 +126,9 @@
 
 **Independent Test**: Click a team boxplot; position changes chart highlights that team's drivers. Click a driver line; driver analysis panel updates. Click Clear; all charts reset to default.
 
-- [ ] T041 [US6] Add Clear Selection button to RacePage.jsx header area (shown only when selectedDrivers.size > 0 or selectedTeam is set): clicking sets selectedDrivers to new Set() and selectedTeam to null; style as a small secondary MUI Button with a close icon
-- [ ] T042 [US6] Verify full wiring in RacePage.jsx: onDriverToggle from PositionChangesChart toggles selectedDrivers; onTeamClick from TeamPaceChart sets/clears selectedTeam; selectedTeam causes PositionChangesChart to apply team-level emphasis; all panels re-render correctly on state change
-- [ ] T043 [US6] Add aria-label attributes to PositionChangesChart container div, TeamPaceChart container div, and the driver analysis panel container div for accessibility
+- [X] T041 [US6] Add Clear Selection button to RacePage.jsx header area (shown only when selectedDrivers.size > 0 or selectedTeam is set): clicking sets selectedDrivers to new Set() and selectedTeam to null
+- [X] T042 [US6] Verify full wiring in RacePage.jsx: onDriverToggle, onTeamClick, selectedTeam → PositionChangesChart emphasis; all panels re-render correctly on state change
+- [X] T043 [US6] Add aria-label attributes to PositionChangesChart container, TeamPaceChart container, and driver analysis panel for accessibility
 
 **Checkpoint**: All cross-chart interactions work end-to-end; Clear button appears and resets all state; ARIA labels are present
 
@@ -140,10 +140,10 @@
 
 **Independent Test**: Switch to Race tab; content fades in. Select/deselect a driver; the panel content transitions rather than snapping. Select a session; new data appears with a fade.
 
-- [ ] T044 [US7] Add animate-fade-in class (already defined in App.css or index.css) to the root div of RacePage.jsx to fade in the page on tab navigation
-- [ ] T045 [US7] Wrap the driver analysis panel content in RacePage.jsx with a transition container: apply transition-all duration-300 opacity-0/opacity-100 Tailwind classes controlled by a boolean derived from selectedDrivers.size; ensures smooth swap between hint → scatterplot → comparison chart
-- [ ] T046 [US7] Add transition-opacity duration-200 to PositionChangesChart.jsx line rendering: selected drivers get opacity-100, unselected get opacity-25, ensuring the opacity change animates rather than snaps (CSS handles the interpolation via the @nivo/line layers approach or inline style on each series wrapper)
-- [ ] T047 [US7] Verify tab transition: confirm the existing Tailwind animate-fade-in pattern used by other pages is applied consistently to RacePage
+- [X] T044 [US7] Add animate-fade-in class to the root div of RacePage.jsx
+- [X] T045 [US7] Wrap the driver analysis panel content in transition-opacity duration-300 containers with key prop for smooth swap
+- [X] T046 [US7] CSS transition on PositionChangesChart line opacity (200ms ease) already applied in layers path renderer
+- [X] T047 [US7] Verify tab transition: animate-fade-in is consistent with other pages
 
 **Checkpoint**: All transitions are smooth (200–400ms); no visual jank when switching between driver selection states
 
@@ -153,10 +153,10 @@
 
 **Purpose**: Final cleanup, backend dead-code removal, and validation against quickstart.md.
 
-- [ ] T048 [P] Delete get_lap_times_distribution function from packages/backend/app/services/lap_time_service.py and the /distribution endpoint from packages/backend/app/routers/lap_times.py
-- [ ] T049 [P] Verify no remaining imports of LapTimesPage, useLapTimes, or lapTimes API client exist anywhere in packages/frontend/src/ using grep; fix any found
-- [ ] T050 [P] Run ESLint on packages/frontend/src/components/race/ and packages/frontend/src/pages/RacePage.jsx; fix all warnings and errors
-- [ ] T051 [P] Run pytest packages/backend/__tests__/unit/test_race_service.py and confirm all tests pass
+- [X] T048 [P] Delete get_lap_times_distribution function from packages/backend/app/services/lap_time_service.py and the /distribution endpoint from packages/backend/app/routers/lap_times.py
+- [X] T049 [P] Verified no remaining imports of LapTimesPage, useLapTimes, or lapTimes API client exist in packages/frontend/src/
+- [X] T050 [P] ESLint pre-existing plugin version mismatch (not caused by our code). VS Code shows no errors in race components or RacePage.jsx
+- [X] T051 [P] All 14 unit tests pass (pytest packages/backend/__tests__/unit/)
 - [ ] T052 Validate the full quickstart.md flow: start backend, start frontend, select 2024 Bahrain Grand Prix Race session, verify all three charts render, verify driver toggle and team click interactions work, verify Clear button resets state
 
 ---

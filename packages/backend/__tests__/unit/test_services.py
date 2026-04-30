@@ -54,39 +54,6 @@ class TestGetEventSchedule:
         assert expected_keys == set(result[0].keys())
 
 
-class TestGetLapTimesDistribution:
-    @patch("app.services.lap_time_service.get_session")
-    def test_returns_expected_shape(self, mock_get_session):
-        mock_session = MagicMock()
-        mock_session.drivers = ["1", "4"]
-
-        mock_laps_df = pd.DataFrame(
-            {
-                "Driver": ["VER", "VER", "NOR"],
-                "LapNumber": [1, 2, 1],
-                "LapTime": [
-                    pd.Timedelta(seconds=90),
-                    pd.Timedelta(seconds=91),
-                    pd.Timedelta(seconds=92),
-                ],
-            }
-        )
-
-        mock_session.laps.pick_drivers.return_value.pick_quicklaps.return_value.reset_index.return_value = (
-            mock_laps_df
-        )
-        mock_session.get_driver.side_effect = lambda d: {"Abbreviation": d}
-        mock_get_session.return_value = mock_session
-
-        from app.services.lap_time_service import get_lap_times_distribution
-
-        result = get_lap_times_distribution(2024, "Bahrain", top_n_drivers=2)
-
-        assert result["year"] == 2024
-        assert result["event"] == "Bahrain"
-        assert isinstance(result["laps"], list)
-        assert len(result["laps"]) == 3
-
 
 class TestGetQualifyingResultsQ1Q2Q3:
     """Tests for Q1/Q2/Q3 seconds fields in qualifying results."""
