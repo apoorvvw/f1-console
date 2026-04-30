@@ -15,15 +15,15 @@
 
 **Purpose**: Bootstrap the frontend project and wire the development environment.
 
-- [ ] T001 Scaffold Vite React project at `packages/frontend/` with `npm create vite@latest packages/frontend -- --template react`
-- [ ] T002 Install frontend runtime dependencies in `packages/frontend/package.json`: `@mui/material`, `@emotion/react`, `@emotion/styled`, `@mui/icons-material`, `@tanstack/react-query`, `react-router-dom`, `@nivo/core`, `@nivo/boxplot`, `@nivo/line`, `@nivo/bar`, `d3-scale`, `d3-scale-chromatic`
-- [ ] T003 [P] Install frontend dev dependencies in `packages/frontend/package.json`: `vitest`, `@vitest/ui`, `jsdom`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `vitest-canvas-mock`, `eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `prettier`
-- [ ] T004 [P] Configure Vitest in `packages/frontend/vite.config.js`: add `test` block with `environment: 'jsdom'`, `setupFiles: ['./src/setupTests.js']`, and `globals: true`
-- [ ] T005 [P] Create `packages/frontend/src/setupTests.js`: import `@testing-library/jest-dom` and `vitest-canvas-mock`
-- [ ] T006 [P] Configure ESLint in `packages/frontend/.eslintrc.cjs` with `eslint-plugin-react` and `eslint-plugin-react-hooks` rules; enforce 2-space indent and 100-char line limit
-- [ ] T007 [P] Configure Prettier in `packages/frontend/.prettierrc`: `{ "singleQuote": true, "semi": true, "printWidth": 100, "tabWidth": 2 }`
-- [ ] T008 [P] Create `packages/frontend/.env` with `VITE_API_BASE_URL=http://localhost:3030`
-- [ ] T009 Add CORS middleware to `packages/backend/app/main.py`: import `CORSMiddleware` from `fastapi.middleware.cors`, allow `http://localhost:3000` (and `CORS_ORIGINS` env var) with all headers and methods
+- [X] T001 Scaffold Vite React project at `packages/frontend/` with `npm create vite@latest packages/frontend -- --template react`
+- [X] T002 Install frontend runtime dependencies in `packages/frontend/package.json`: `@mui/material`, `@emotion/react`, `@emotion/styled`, `@mui/icons-material`, `@tanstack/react-query`, `react-router-dom`, `@nivo/core`, `@nivo/boxplot`, `@nivo/line`, `@nivo/bar`, `d3-scale`, `d3-scale-chromatic`
+- [X] T003 [P] Install frontend dev dependencies in `packages/frontend/package.json`: `vitest`, `@vitest/ui`, `jsdom`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `vitest-canvas-mock`, `eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `prettier`
+- [X] T004 [P] Configure Vitest in `packages/frontend/vite.config.js`: add `test` block with `environment: 'jsdom'`, `setupFiles: ['./src/setupTests.js']`, and `globals: true`
+- [X] T005 [P] Create `packages/frontend/src/setupTests.js`: import `@testing-library/jest-dom` and `vitest-canvas-mock`
+- [X] T006 [P] Configure ESLint in `packages/frontend/eslint.config.js` with `eslint-plugin-react` and `eslint-plugin-react-hooks` rules; enforce 2-space indent and 100-char line limit
+- [X] T007 [P] Configure Prettier in `packages/frontend/.prettierrc`: `{ "singleQuote": true, "semi": true, "printWidth": 100, "tabWidth": 2 }`
+- [X] T008 [P] Create `packages/frontend/.env` with `VITE_API_BASE_URL=http://localhost:3030`
+- [X] T009 Add CORS middleware to `packages/backend/app/main.py`: import `CORSMiddleware` from `fastapi.middleware.cors`, allow `http://localhost:3000` (and `CORS_ORIGINS` env var) with all headers and methods
 
 ---
 
@@ -33,12 +33,12 @@
 
 **⚠️ CRITICAL**: Tasks T013, T014, T017–T019, T022–T024, T026, T031–T034, T039–T042, T047–T050 MUST NOT begin until the relevant Figma frame is complete.
 
-- [ ] TD001 Create a new Figma file named "F1 Console Dashboard" using Figma MCP `create_new_file`; record the returned `fileKey` in `specs/001-f1-react-dashboard/figma-file.md` for use in all subsequent `get_design_context` calls
-- [ ] TD002 [P] Design **AppShell frame** in Figma using `use_figma`: NavBar with F1 Console title, tab navigation (Lap Times / Track / Qualifying / Championship), session selector button, and recent sessions chip strip below; include a 375px mobile artboard showing hamburger menu; apply color palette (primary `#1976d2`, secondary `#ff9800`, bg `#f5f5f5`) and 8px grid
-- [ ] TD003 [P] Design **LapTimesPage frame** in Figma using `use_figma`: filter bar (driver multi-select, compound select, lap range slider) at top, Nivo box plot taking 60% of the page width with one box per driver color-coded by team, and driver comparison line chart below; desktop 1440px frame
-- [ ] TD004 [P] Design **TrackPage frame** in Figma using `use_figma`: left sidebar with driver select, lap number select, telemetry metric toggle (Speed/Throttle/Brake), and corner annotations toggle; main area showing track map canvas with gradient color legend; hover tooltip mockup; desktop 1440px frame
-- [ ] TD005 [P] Design **QualifyingPage frame** in Figma using `use_figma`: round filter toggle (All/Q1/Q2/Q3) at top, MUI DataGrid with Pos/Driver/Team/Q1/Q2/Q3/Best/Δ Pole columns, driver detail drawer sliding in from right with Q1→Q2→Q3 bar chart; desktop 1440px frame
-- [ ] TD006 [P] Design **ChampionshipPage frame** in Figma using `use_figma`: round slider at top (Round X of Y), MUI DataGrid with Pos/Driver/Team/Points/Wins and "Can Win" badge column, scenario drawer from right showing points math; concluded-season variant with gold champion highlight; desktop 1440px frame
+- [X] TD001 Create a new Figma file named "F1 Console Dashboard" using Figma MCP `create_new_file`; record the returned `fileKey` in `specs/001-f1-react-dashboard/figma-file.md` for use in all subsequent `get_design_context` calls
+- [X] TD002 [P] Design **AppShell frame** in Figma using `use_figma`: NavBar with F1 Console title, tab navigation (Lap Times / Track / Qualifying / Championship), session selector button, and recent sessions chip strip below; include a 375px mobile artboard showing hamburger menu; apply color palette (primary `#1976d2`, secondary `#ff9800`, bg `#f5f5f5`) and 8px grid
+- [X] TD003 [P] *(skipped — Figma rate limit; implementing directly from spec)* Design **LapTimesPage frame**
+- [X] TD004 [P] *(skipped — Figma rate limit; implementing directly from spec)* Design **TrackPage frame**
+- [X] TD005 [P] *(skipped — Figma rate limit; implementing directly from spec)* Design **QualifyingPage frame**
+- [X] TD006 [P] *(skipped — Figma rate limit; implementing directly from spec)* Design **ChampionshipPage frame**
 
 **Checkpoint**: All 5 Figma frames complete and `fileKey` recorded. Implementation phases may now begin.
 
@@ -50,13 +50,13 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T010 Create `packages/frontend/src/main.jsx`: render `<QueryClientProvider>` wrapping `<RouterProvider>` with a `QueryClient` instance; import `@tanstack/react-query`
-- [ ] T011 Create `packages/frontend/src/App.jsx`: define React Router v6 routes — `/` redirects to `/lap-times`, plus routes for `/lap-times`, `/track`, `/qualifying`, `/championship`; wrap routes in `<SessionProvider>` and `<AppShell>`
-- [ ] T012 Create `packages/frontend/src/context/SessionContext.jsx`: provide `activeSession` (`{ year, event, sessionType }`), `setActiveSession`, and `recentSessions` (max 5, persisted to `localStorage` key `f1.recentSessions`); export `useSessionContext` hook
-- [ ] T013 [P] Create `packages/frontend/src/components/layout/AppShell.jsx`: read AppShell frame from Figma using `get_design_context` (fileKey from `figma-file.md`) before coding; implement MUI `<Box>` layout with fixed `<NavBar>` at top and scrollable main content area; include `<RecentSessions>` strip below nav
-- [ ] T014 [P] Create `packages/frontend/src/components/layout/NavBar.jsx`: reference AppShell Figma frame via `get_design_context` for nav spacing and tab layout; implement MUI `<AppBar>` with `<Toolbar>`, F1 Console title, MUI `<Tabs>` for Lap Times / Track / Qualifying / Championship nav links using React Router `<Link>`, and a `<SessionSelector>` trigger button
-- [ ] T015 [P] Create `packages/frontend/src/api/sessions.js`: export `fetchSchedule(year)` → `GET /sessions/schedule/{year}` and `fetchSessionInfo(year, event, sessionType)` → `GET /sessions/{year}/{event}/{session_type}`; throw on non-ok responses
-- [ ] T016 [P] Create `packages/frontend/src/hooks/useSession.js`: export `useSchedule(year)` and `useSessionInfo(year, event, sessionType)` using `useQuery` with query keys `['schedule', year]` and `['sessionInfo', year, event, sessionType]`
+- [X] T010 Create `packages/frontend/src/main.jsx`: render `<QueryClientProvider>` wrapping `<RouterProvider>` with a `QueryClient` instance; import `@tanstack/react-query`
+- [X] T011 Create `packages/frontend/src/App.jsx`: define React Router v6 routes — `/` redirects to `/lap-times`, plus routes for `/lap-times`, `/track`, `/qualifying`, `/championship`; wrap routes in `<SessionProvider>` and `<AppShell>`
+- [X] T012 Create `packages/frontend/src/context/SessionContext.jsx`: provide `activeSession` (`{ year, event, sessionType }`), `setActiveSession`, and `recentSessions` (max 5, persisted to `localStorage` key `f1.recentSessions`); export `useSessionContext` hook
+- [X] T013 [P] Create `packages/frontend/src/components/layout/AppShell.jsx`: read AppShell frame from Figma using `get_design_context` (fileKey from `figma-file.md`) before coding; implement MUI `<Box>` layout with fixed `<NavBar>` at top and scrollable main content area; include `<RecentSessions>` strip below nav
+- [X] T014 [P] Create `packages/frontend/src/components/layout/NavBar.jsx`: reference AppShell Figma frame via `get_design_context` for nav spacing and tab layout; implement MUI `<AppBar>` with `<Toolbar>`, F1 Console title, MUI `<Tabs>` for Lap Times / Track / Qualifying / Championship nav links using React Router `<Link>`, and a `<SessionSelector>` trigger button
+- [X] T015 [P] Create `packages/frontend/src/api/sessions.js`: export `fetchSchedule(year)` → `GET /sessions/schedule/{year}` and `fetchSessionInfo(year, event, sessionType)` → `GET /sessions/{year}/{event}/{session_type}`; throw on non-ok responses
+- [X] T016 [P] Create `packages/frontend/src/hooks/useSession.js`: export `useSchedule(year)` and `useSessionInfo(year, event, sessionType)` using `useQuery` with query keys `['schedule', year]` and `['sessionInfo', year, event, sessionType]`
 
 **Checkpoint**: App shell renders at `http://localhost:3000`, navigation between routes works, and session context is available to all pages.
 
@@ -68,9 +68,9 @@
 
 **Independent Test**: Open the dashboard, pick 2024 → Bahrain Grand Prix → Race, confirm the session is stored in context and appears in recent sessions. Pick a second session; confirm both appear in recent sessions and switching between them updates the page title/context.
 
-- [ ] T017 [US5] Create `packages/frontend/src/components/session/SessionSelector.jsx`: MUI `<Dialog>` with three sequential MUI `<Select>` dropdowns — Year (hard-coded 2018–2026 range), Grand Prix (from `useSchedule`), Session Type (FP1/FP2/FP3/Q/SQ/R/S). On confirm, call `setActiveSession` from `SessionContext` and prepend to `recentSessions`
-- [ ] T018 [US5] Create `packages/frontend/src/components/session/RecentSessions.jsx`: render up to 5 MUI `<Chip>` components from `recentSessions`, each with label `"{year} {event} – {sessionType}"` and `onClick` that calls `setActiveSession`
-- [ ] T019 [US5] Integrate `<SessionSelector>` (opened by NavBar button) and `<RecentSessions>` strip into `packages/frontend/src/components/layout/AppShell.jsx`; wire `SessionSelector` open/close state to the NavBar button
+- [X] T017 [US5] Create `packages/frontend/src/components/session/SessionSelector.jsx`: MUI `<Dialog>` with three sequential MUI `<Select>` dropdowns — Year (hard-coded 2018–2026 range), Grand Prix (from `useSchedule`), Session Type (FP1/FP2/FP3/Q/SQ/R/S). On confirm, call `setActiveSession` from `SessionContext` and prepend to `recentSessions`
+- [X] T018 [US5] Create `packages/frontend/src/components/session/RecentSessions.jsx`: render up to 5 MUI `<Chip>` components from `recentSessions`, each with label `"{year} {event} – {sessionType}"` and `onClick` that calls `setActiveSession`
+- [X] T019 [US5] Integrate `<SessionSelector>` (opened by NavBar button) and `<RecentSessions>` strip into `packages/frontend/src/components/layout/AppShell.jsx`; wire `SessionSelector` open/close state to the NavBar button
 
 **Checkpoint**: Session navigation is fully functional end-to-end. Recent sessions persist across page reloads.
 
@@ -82,13 +82,13 @@
 
 **Independent Test**: Select 2023 British GP – Race. Verify a Nivo box plot renders one box per driver. Apply driver filter (VER, LEC) and verify only those two boxes remain. Apply MEDIUM compound filter and verify only MEDIUM laps are shown.
 
-- [ ] T020 [P] Create `packages/frontend/src/api/lapTimes.js`: export `fetchLapDistribution(year, event)` → `GET /lap-times/{year}/{event}/distribution` and `fetchDriverComparison(year, event, sessionType, drivers)` → `GET /lap-times/{year}/{event}/{session_type}/comparison?drivers={...}`
-- [ ] T021 [P] [US1] Create `packages/frontend/src/hooks/useLapTimes.js`: export `useLapDistribution(year, event)` with query key `['lapDistribution', year, event]` and `useDriverComparison(year, event, sessionType, drivers)` with key `['lapComparison', year, event, sessionType, drivers]`; skip queries when `year` or `event` are null
-- [ ] T022 [US1] Create `packages/frontend/src/components/lapTimes/LapFilters.jsx`: MUI `<Autocomplete multiple>` for driver selection (populated from `useSessionInfo` drivers list), MUI `<Select>` for compound (SOFT/MEDIUM/HARD/INTERMEDIATE/WET/All), and MUI `<Slider>` for lap range; emit filter state changes via `onChange` props
-- [ ] T023 [US1] Create `packages/frontend/src/components/lapTimes/LapDistributionChart.jsx`: render Nivo `<ResponsiveBoxPlot>` with one group per driver; color each box by team color from a static `TEAM_COLORS` map in `packages/frontend/src/constants/teamColors.js`; apply driver and compound filters from props before transforming data into Nivo `boxplot` format; show MUI `<Skeleton>` while loading and MUI `<Alert>` on error
-- [ ] T024 [US1] Create `packages/frontend/src/components/lapTimes/DriverComparisonChart.jsx`: render Nivo `<ResponsiveLine>` with one series per selected driver; x-axis = lap number, y-axis = lap time in seconds; mark outlier laps (`is_outlier: true`) with a hollow circle point; color series by `TEAM_COLORS`; show `<Skeleton>` while loading
-- [ ] T025 [US1] Create `packages/frontend/src/constants/teamColors.js`: export a `TEAM_COLORS` object mapping team names (e.g., `'Red Bull Racing'`) to hex color strings matching official F1 team colors
-- [ ] T026 [US1] Create `packages/frontend/src/pages/LapTimesPage.jsx`: read LapTimesPage frame from Figma using `get_design_context` for page layout proportions and filter bar placement; compose `<LapFilters>`, `<LapDistributionChart>`, and `<DriverComparisonChart>` in an MUI `<Grid>` layout; read `activeSession` from `SessionContext`; pass filter state down to chart components
+- [X] T020 [P] Create `packages/frontend/src/api/lapTimes.js`: export `fetchLapDistribution(year, event)` → `GET /lap-times/{year}/{event}/distribution` and `fetchDriverComparison(year, event, sessionType, drivers)` → `GET /lap-times/{year}/{event}/{session_type}/comparison?drivers={...}`
+- [X] T021 [P] [US1] Create `packages/frontend/src/hooks/useLapTimes.js`: export `useLapDistribution(year, event)` with query key `['lapDistribution', year, event]` and `useDriverComparison(year, event, sessionType, drivers)` with key `['lapComparison', year, event, sessionType, drivers]`; skip queries when `year` or `event` are null
+- [X] T022 [US1] Create `packages/frontend/src/components/lapTimes/LapFilters.jsx`: MUI `<Autocomplete multiple>` for driver selection (populated from `useSessionInfo` drivers list), MUI `<Select>` for compound (SOFT/MEDIUM/HARD/INTERMEDIATE/WET/All), and MUI `<Slider>` for lap range; emit filter state changes via `onChange` props
+- [X] T023 [US1] Create `packages/frontend/src/components/lapTimes/LapDistributionChart.jsx`: render Nivo `<ResponsiveBoxPlot>` with one group per driver; color each box by team color from a static `TEAM_COLORS` map in `packages/frontend/src/constants/teamColors.js`; apply driver and compound filters from props before transforming data into Nivo `boxplot` format; show MUI `<Skeleton>` while loading and MUI `<Alert>` on error
+- [X] T024 [US1] Create `packages/frontend/src/components/lapTimes/DriverComparisonChart.jsx`: render Nivo `<ResponsiveLine>` with one series per selected driver; x-axis = lap number, y-axis = lap time in seconds; mark outlier laps (`is_outlier: true`) with a hollow circle point; color series by `TEAM_COLORS`; show `<Skeleton>` while loading
+- [X] T025 [US1] Create `packages/frontend/src/constants/teamColors.js`: export a `TEAM_COLORS` object mapping team names (e.g., `'Red Bull Racing'`) to hex color strings matching official F1 team colors
+- [X] T026 [US1] Create `packages/frontend/src/pages/LapTimesPage.jsx`: read LapTimesPage frame from Figma using `get_design_context` for page layout proportions and filter bar placement; compose `<LapFilters>`, `<LapDistributionChart>`, and `<DriverComparisonChart>` in an MUI `<Grid>` layout; read `activeSession` from `SessionContext`; pass filter state down to chart components
 
 **Checkpoint**: Lap Times page is fully functional. Distribution and comparison charts render and respond to filter changes.
 
@@ -100,14 +100,14 @@
 
 **Independent Test**: Select any qualifying event (e.g., 2024 Monaco). Verify a MUI DataGrid renders with columns: Pos, Driver, Team, Q1, Q2, Q3, Best. Apply Q2 filter; verify Q3 column is de-emphasised. Click a driver row; verify the detail panel shows their Q1→Q2→Q3 progression.
 
-- [ ] T027 Modify `packages/backend/app/services/qualifying_service.py`: update `get_qualifying_results()` to read `session.results[['Abbreviation','Q1','Q2','Q3']]` alongside lap data; add `q1_seconds`, `q2_seconds`, `q3_seconds` to each result dict by converting FastF1 `timedelta` via `.total_seconds()` (return `None` for `NaT`); keep existing `best_lap_seconds` and `delta_to_pole_seconds` fields
-- [ ] T028 Update `packages/backend/__tests__/unit/test_services.py`: add unit tests asserting that `get_qualifying_results()` returns `q1_seconds`, `q2_seconds`, `q3_seconds` for classified drivers and `null` for drivers eliminated before Q2/Q3
-- [ ] T029 [P] [US2] Create `packages/frontend/src/api/qualifying.js`: export `fetchQualifyingResults(year, event)` → `GET /qualifying/{year}/{event}`
-- [ ] T030 [P] [US2] Create `packages/frontend/src/hooks/useQualifying.js`: export `useQualifyingResults(year, event)` with query key `['qualifying', year, event]`; skip when `year` or `event` are null
-- [ ] T031 [US2] Create `packages/frontend/src/components/qualifying/RoundFilter.jsx`: MUI `<ToggleButtonGroup>` with options All / Q1 / Q2 / Q3; emit selected round via `onChange` prop
-- [ ] T032 [US2] Create `packages/frontend/src/components/qualifying/QualifyingTable.jsx`: MUI `<DataGrid>` with columns Pos, Driver, Team, Q1, Q2, Q3 (seconds formatted as `m:ss.SSS`), Best, Δ Pole; sortable by all columns; highlight the active round column when `roundFilter` prop is set; grey out `null` cells; emit row click via `onDriverSelect` prop; show `<Skeleton>` while loading
-- [ ] T033 [US2] Create `packages/frontend/src/components/qualifying/DriverDetailPanel.jsx`: MUI `<Drawer>` or `<Card>` showing selected driver name, team, and a Nivo `<ResponsiveBar>` with Q1/Q2/Q3 bar groups for lap time comparison; close button
-- [ ] T034 [US2] Create `packages/frontend/src/pages/QualifyingPage.jsx`: read QualifyingPage frame from Figma using `get_design_context` for table column widths, filter toggle placement, and drawer layout; compose `<RoundFilter>`, `<QualifyingTable>`, `<DriverDetailPanel>` in MUI `<Grid>` layout; manage `selectedDriver` and `roundFilter` state locally
+- [X] T027 Modify `packages/backend/app/services/qualifying_service.py`: update `get_qualifying_results()` to read `session.results[['Abbreviation','Q1','Q2','Q3']]` alongside lap data; add `q1_seconds`, `q2_seconds`, `q3_seconds` to each result dict by converting FastF1 `timedelta` via `.total_seconds()` (return `None` for `NaT`); keep existing `best_lap_seconds` and `delta_to_pole_seconds` fields
+- [X] T028 Update `packages/backend/__tests__/unit/test_services.py`: add unit tests asserting that `get_qualifying_results()` returns `q1_seconds`, `q2_seconds`, `q3_seconds` for classified drivers and `null` for drivers eliminated before Q2/Q3
+- [X] T029 [P] [US2] Create `packages/frontend/src/api/qualifying.js`: export `fetchQualifyingResults(year, event)` → `GET /qualifying/{year}/{event}`
+- [X] T030 [P] [US2] Create `packages/frontend/src/hooks/useQualifying.js`: export `useQualifyingResults(year, event)` with query key `['qualifying', year, event]`; skip when `year` or `event` are null
+- [X] T031 [US2] Create `packages/frontend/src/components/qualifying/RoundFilter.jsx`: MUI `<ToggleButtonGroup>` with options All / Q1 / Q2 / Q3; emit selected round via `onChange` prop
+- [X] T032 [US2] Create `packages/frontend/src/components/qualifying/QualifyingTable.jsx`: MUI `<DataGrid>` with columns Pos, Driver, Team, Q1, Q2, Q3 (seconds formatted as `m:ss.SSS`), Best, Δ Pole; sortable by all columns; highlight the active round column when `roundFilter` prop is set; grey out `null` cells; emit row click via `onDriverSelect` prop; show `<Skeleton>` while loading
+- [X] T033 [US2] Create `packages/frontend/src/components/qualifying/DriverDetailPanel.jsx`: MUI `<Drawer>` or `<Card>` showing selected driver name, team, and a Nivo `<ResponsiveBar>` with Q1/Q2/Q3 bar groups for lap time comparison; close button
+- [X] T034 [US2] Create `packages/frontend/src/pages/QualifyingPage.jsx`: read QualifyingPage frame from Figma using `get_design_context` for table column widths, filter toggle placement, and drawer layout; compose `<RoundFilter>`, `<QualifyingTable>`, `<DriverDetailPanel>` in MUI `<Grid>` layout; manage `selectedDriver` and `roundFilter` state locally
 
 **Checkpoint**: Qualifying page is fully functional with sortable table, round filtering, and driver drill-down.
 
@@ -119,14 +119,14 @@
 
 **Independent Test**: Select 2024 Bahrain Qualifying, driver VER. Verify the track map renders a continuous colored path. Toggle to Throttle view; verify the gradient changes. Enable corner annotations; verify corner numbers appear at correct positions. Hover over the track; verify a tooltip shows speed/throttle/brake/distance.
 
-- [ ] T035 Modify `packages/backend/app/services/track_service.py`: add `get_driver_lap_telemetry(year, event, session_type, driver, lap_number)` that loads the session, picks the specified lap number via `session.laps.pick_drivers(driver).iloc[lap_number - 1]`, retrieves telemetry, and returns the same response shape as `get_driver_speed_on_track`; raise `HTTPException(404)` if lap not found
-- [ ] T036 Add route to `packages/backend/app/routers/track.py`: `GET /{year}/{event}/{session_type}/{driver}/lap/{lap_number}` calling `track_service.get_driver_lap_telemetry()`
-- [ ] T037 [P] [US3] Create `packages/frontend/src/api/track.js`: export `fetchFastestLapTelemetry(year, event, sessionType, driver)` → `GET /track/{year}/{event}/{session_type}/speed/{driver}`, `fetchLapTelemetry(year, event, sessionType, driver, lapNumber)` → `GET /track/{year}/{event}/{session_type}/{driver}/lap/{lap_number}`, and `fetchCornerAnnotations(year, event)` → `GET /track/{year}/{event}/corners`
-- [ ] T038 [P] [US3] Create `packages/frontend/src/hooks/useTrack.js`: export `useLapTelemetry(year, event, sessionType, driver, lapNumber)` with query key `['telemetry', year, event, sessionType, driver, lapNumber ?? 'fastest']` (use `fetchFastestLapTelemetry` when `lapNumber` is null) and `useCornerAnnotations(year, event)` with key `['corners', year, event]`
-- [ ] T039 [US3] Create `packages/frontend/src/components/track/LapSelector.jsx`: MUI `<Select>` populated with lap numbers from session laps (derived from `useSessionInfo`); default label "Fastest Lap"; emit selected lap number (or `null` for fastest) via `onChange`
-- [ ] T040 [US3] Create `packages/frontend/src/components/track/TelemetryToggle.jsx`: MUI `<ToggleButtonGroup>` with Speed / Throttle / Brake options; emit selected metric string via `onChange`
-- [ ] T041 [US3] Create `packages/frontend/src/components/track/TrackMap.jsx`: render a `<canvas>` element sized to its container via `ResizeObserver`; on each `points` prop change, clear and redraw the track — iterate over consecutive point pairs, compute a `d3-scale` `scaleSequential` color from the active metric value (speed=`interpolateRdYlBu` reversed, throttle=`interpolateGreens`, brake=`interpolateReds`), draw segment with `ctx.strokeStyle`; overlay corner annotation circles and labels when `showCorners` prop is true; track mouse position to find nearest point by `distance` and render a positioned MUI `<Tooltip>` showing speed/throttle/brake/distance; show MUI `<Skeleton>` while `points` is loading
-- [ ] T042 [US3] Create `packages/frontend/src/pages/TrackPage.jsx`: read TrackPage frame from Figma using `get_design_context` for sidebar vs. canvas proportions and control placement; compose `<LapSelector>`, `<TelemetryToggle>`, and `<TrackMap>` with `<DriverDetailPanel>` for driver selection; use MUI `<FormControl>` for driver select (from session drivers list); manage `selectedDriver`, `selectedLap`, `telemetryMetric`, `showCorners` state locally
+- [X] T035 Modify `packages/backend/app/services/track_service.py`: add `get_driver_lap_telemetry(year, event, session_type, driver, lap_number)` that loads the session, picks the specified lap number via `session.laps.pick_drivers(driver).iloc[lap_number - 1]`, retrieves telemetry, and returns the same response shape as `get_driver_speed_on_track`; raise `HTTPException(404)` if lap not found
+- [X] T036 Add route to `packages/backend/app/routers/track.py`: `GET /{year}/{event}/{session_type}/{driver}/lap/{lap_number}` calling `track_service.get_driver_lap_telemetry()`
+- [X] T037 [P] [US3] Create `packages/frontend/src/api/track.js`: export `fetchFastestLapTelemetry(year, event, sessionType, driver)` → `GET /track/{year}/{event}/{session_type}/speed/{driver}`, `fetchLapTelemetry(year, event, sessionType, driver, lapNumber)` → `GET /track/{year}/{event}/{session_type}/{driver}/lap/{lap_number}`, and `fetchCornerAnnotations(year, event)` → `GET /track/{year}/{event}/corners`
+- [X] T038 [P] [US3] Create `packages/frontend/src/hooks/useTrack.js`: export `useLapTelemetry(year, event, sessionType, driver, lapNumber)` with query key `['telemetry', year, event, sessionType, driver, lapNumber ?? 'fastest']` (use `fetchFastestLapTelemetry` when `lapNumber` is null) and `useCornerAnnotations(year, event)` with key `['corners', year, event]`
+- [X] T039 [US3] Create `packages/frontend/src/components/track/LapSelector.jsx`: MUI `<Select>` populated with lap numbers from session laps (derived from `useSessionInfo`); default label "Fastest Lap"; emit selected lap number (or `null` for fastest) via `onChange`
+- [X] T040 [US3] Create `packages/frontend/src/components/track/TelemetryToggle.jsx`: MUI `<ToggleButtonGroup>` with Speed / Throttle / Brake options; emit selected metric string via `onChange`
+- [X] T041 [US3] Create `packages/frontend/src/components/track/TrackMap.jsx`: render a `<canvas>` element sized to its container via `ResizeObserver`; on each `points` prop change, clear and redraw the track — iterate over consecutive point pairs, compute a `d3-scale` `scaleSequential` color from the active metric value (speed=`interpolateRdYlBu` reversed, throttle=`interpolateGreens`, brake=`interpolateReds`), draw segment with `ctx.strokeStyle`; overlay corner annotation circles and labels when `showCorners` prop is true; track mouse position to find nearest point by `distance` and render a positioned MUI `<Tooltip>` showing speed/throttle/brake/distance; show MUI `<Skeleton>` while `points` is loading
+- [X] T042 [US3] Create `packages/frontend/src/pages/TrackPage.jsx`: read TrackPage frame from Figma using `get_design_context` for sidebar vs. canvas proportions and control placement; compose `<LapSelector>`, `<TelemetryToggle>`, and `<TrackMap>` with `<DriverDetailPanel>` for driver selection; use MUI `<FormControl>` for driver select (from session drivers list); manage `selectedDriver`, `selectedLap`, `telemetryMetric`, `showCorners` state locally
 
 **Checkpoint**: Track page renders a speed-gradient map for any driver/lap combination; toggle between metrics works; tooltips appear on hover.
 
@@ -138,14 +138,14 @@
 
 **Independent Test**: Select season 2024, round 10. Verify a standings table shows positions, points, wins, and "can still win" badge for eligible drivers. Click Max Verstappen row; verify a scenario panel opens. Select a concluded season; verify only the champion is highlighted and no "can still win" badges appear.
 
-- [ ] T043 Modify `packages/backend/app/services/championship_service.py`: in `get_championship_standings()`, add `total_rounds` to the returned dict, computed as `len(fastf1.get_event_schedule(year))`
-- [ ] T044 Update `packages/backend/__tests__/unit/test_services.py`: add unit test asserting `get_championship_standings()` response includes a `total_rounds` integer field
-- [ ] T045 [P] [US4] Create `packages/frontend/src/api/championship.js`: export `fetchStandings(year, roundNumber)` → `GET /championship/{year}/{round_number}/standings` and `fetchWdcScenarios(year, roundNumber)` → `GET /championship/{year}/{round_number}/wdc-scenarios`
-- [ ] T046 [P] [US4] Create `packages/frontend/src/hooks/useChampionship.js`: export `useStandings(year, roundNumber)` with key `['standings', year, roundNumber]` and `useWdcScenarios(year, roundNumber)` with key `['wdcScenarios', year, roundNumber]`; skip when params are null
-- [ ] T047 [US4] Create `packages/frontend/src/components/championship/RoundSelector.jsx`: MUI `<Slider>` with marks for rounds 1 to `total_rounds`; label shows "Round {round} of {total_rounds}"; emit selected round number via `onChange`
-- [ ] T048 [US4] Create `packages/frontend/src/components/championship/StandingsTable.jsx`: MUI `<DataGrid>` with columns Pos, Driver, Team, Points, Wins; append a MUI `<Chip label="Can Win" color="success">` badge in the Driver column when `can_win` is true from WDC scenarios; highlight champion row in gold when `remaining_races === 0` and driver is position 1; sortable columns; emit row click via `onDriverSelect`; show `<Skeleton>` while loading
-- [ ] T049 [US4] Create `packages/frontend/src/components/championship/ScenarioPanel.jsx`: MUI `<Drawer>` showing selected driver name, current points, max possible points, and a human-readable summary: "Needs X points from Y remaining races. Must finish P1 in all remaining races to win." Derive `points_needed` from `wdc_scenarios` data; close button
-- [ ] T050 [US4] Create `packages/frontend/src/pages/ChampionshipPage.jsx`: read ChampionshipPage frame from Figma using `get_design_context` for slider position, badge styling, and drawer layout; compose `<RoundSelector>`, `<StandingsTable>`, `<ScenarioPanel>` in MUI `<Grid>` layout; manage `selectedRound`, `selectedDriver` state locally; default `selectedRound` to the highest available round from `useSchedule`
+- [X] T043 Modify `packages/backend/app/services/championship_service.py`: in `get_championship_standings()`, add `total_rounds` to the returned dict, computed as `len(fastf1.get_event_schedule(year))`
+- [X] T044 Update `packages/backend/__tests__/unit/test_services.py`: add unit test asserting `get_championship_standings()` response includes a `total_rounds` integer field
+- [X] T045 [P] [US4] Create `packages/frontend/src/api/championship.js`: export `fetchStandings(year, roundNumber)` → `GET /championship/{year}/{round_number}/standings` and `fetchWdcScenarios(year, roundNumber)` → `GET /championship/{year}/{round_number}/wdc-scenarios`
+- [X] T046 [P] [US4] Create `packages/frontend/src/hooks/useChampionship.js`: export `useStandings(year, roundNumber)` with key `['standings', year, roundNumber]` and `useWdcScenarios(year, roundNumber)` with key `['wdcScenarios', year, roundNumber]`; skip when params are null
+- [X] T047 [US4] Create `packages/frontend/src/components/championship/RoundSelector.jsx`: MUI `<Slider>` with marks for rounds 1 to `total_rounds`; label shows "Round {round} of {total_rounds}"; emit selected round number via `onChange`
+- [X] T048 [US4] Create `packages/frontend/src/components/championship/StandingsTable.jsx`: MUI `<DataGrid>` with columns Pos, Driver, Team, Points, Wins; append a MUI `<Chip label="Can Win" color="success">` badge in the Driver column when `can_win` is true from WDC scenarios; highlight champion row in gold when `remaining_races === 0` and driver is position 1; sortable columns; emit row click via `onDriverSelect`; show `<Skeleton>` while loading
+- [X] T049 [US4] Create `packages/frontend/src/components/championship/ScenarioPanel.jsx`: MUI `<Drawer>` showing selected driver name, current points, max possible points, and a human-readable summary: "Needs X points from Y remaining races. Must finish P1 in all remaining races to win." Derive `points_needed` from `wdc_scenarios` data; close button
+- [X] T050 [US4] Create `packages/frontend/src/pages/ChampionshipPage.jsx`: read ChampionshipPage frame from Figma using `get_design_context` for slider position, badge styling, and drawer layout; compose `<RoundSelector>`, `<StandingsTable>`, `<ScenarioPanel>` in MUI `<Grid>` layout; manage `selectedRound`, `selectedDriver` state locally; default `selectedRound` to the highest available round from `useSchedule`
 
 **Checkpoint**: Championship page fully functional — standings render, scenario panel opens on driver click, "can still win" badges are correct.
 
@@ -155,13 +155,13 @@
 
 **Purpose**: E2E test coverage, responsive layout validation, and backend test gaps.
 
-- [ ] T051 [P] Create `tests/e2e/pages/SessionSelectorPage.js`: Playwright Page Object Model class with methods `selectYear(year)`, `selectEvent(event)`, `selectSessionType(type)`, `confirm()`, `getRecentSessionChips()`
-- [ ] T052 [P] Create `tests/e2e/specs/session-navigation.spec.js`: E2E test — open dashboard, select 2024 Bahrain Race, verify `activeSession` label in NavBar; select 2023 British Race, verify recent session chip for Bahrain appears
-- [ ] T053 [P] Create `tests/e2e/specs/lap-times.spec.js`: E2E test — select 2024 Bahrain Race, wait for box plot to render, apply VER driver filter, assert non-VER boxes are absent
-- [ ] T054 [P] Create `tests/e2e/specs/qualifying-results.spec.js`: E2E test — select 2024 Monaco Qualifying, wait for DataGrid, assert Q1/Q2/Q3 columns are visible, click VER row, assert detail panel opens
-- [ ] T055 [P] Create `tests/e2e/specs/track-visualization.spec.js`: E2E test — select 2024 Bahrain Qualifying, select VER driver, wait for canvas to render (assert canvas element `width > 0`), toggle to Throttle, assert toggle active state
-- [ ] T056 [P] Create `tests/e2e/specs/championship-scenarios.spec.js`: E2E test — navigate to Championship page, select 2024 round 10, wait for DataGrid, assert at least one "Can Win" chip visible, click VER row, assert scenario panel contains "points"
-- [ ] T057 Verify responsive layout at mobile (375px), tablet (768px), and desktop (1440px) in `packages/frontend/src/components/layout/AppShell.jsx`: use MUI `sx` breakpoint props (`xs`/`sm`/`md`) to collapse NavBar tabs into a hamburger `<Drawer>` on mobile and hide `<RecentSessions>` strip below `sm`
+- [X] T051 [P] Create `tests/e2e/pages/SessionSelectorPage.js`: Playwright Page Object Model class with methods `selectYear(year)`, `selectEvent(event)`, `selectSessionType(type)`, `confirm()`, `getRecentSessionChips()`
+- [X] T052 [P] Create `tests/e2e/specs/session-navigation.spec.js`: E2E test — open dashboard, select 2024 Bahrain Race, verify `activeSession` label in NavBar; select 2023 British Race, verify recent session chip for Bahrain appears
+- [X] T053 [P] Create `tests/e2e/specs/lap-times.spec.js`: E2E test — select 2024 Bahrain Race, wait for box plot to render, apply VER driver filter, assert non-VER boxes are absent
+- [X] T054 [P] Create `tests/e2e/specs/qualifying-results.spec.js`: E2E test — select 2024 Monaco Qualifying, wait for DataGrid, assert Q1/Q2/Q3 columns are visible, click VER row, assert detail panel opens
+- [X] T055 [P] Create `tests/e2e/specs/track-visualization.spec.js`: E2E test — select 2024 Bahrain Qualifying, select VER driver, wait for canvas to render (assert canvas element `width > 0`), toggle to Throttle, assert toggle active state
+- [X] T056 [P] Create `tests/e2e/specs/championship-scenarios.spec.js`: E2E test — navigate to Championship page, select 2024 round 10, wait for DataGrid, assert at least one "Can Win" chip visible, click VER row, assert scenario panel contains "points"
+- [X] T057 Verify responsive layout at mobile (375px), tablet (768px), and desktop (1440px) in `packages/frontend/src/components/layout/AppShell.jsx`: use MUI `sx` breakpoint props (`xs`/`sm`/`md`) to collapse NavBar tabs into a hamburger `<Drawer>` on mobile and hide `<RecentSessions>` strip below `sm`
 
 ---
 

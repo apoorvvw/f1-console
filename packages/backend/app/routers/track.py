@@ -21,6 +21,26 @@ def get_driver_speed_on_track(year: int, event: str, session_type: str, driver: 
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
+@router.get("/{year}/{event}/{session_type}/{driver}/lap/{lap_number}")
+def get_driver_lap_telemetry(
+    year: int, event: str, session_type: str, driver: str, lap_number: int
+):
+    """
+    Return telemetry for a specific lap number of the given driver.
+
+    - **driver**: Three-letter driver abbreviation (e.g. VER, HAM, LEC)
+    - **lap_number**: 1-based lap index within the driver's laps for that session
+    """
+    try:
+        return track_service.get_driver_lap_telemetry(
+            year, event, session_type, driver.upper(), lap_number
+        )
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
 @router.get("/{year}/{event}/corners")
 def get_corner_annotations(year: int, event: str):
     """
