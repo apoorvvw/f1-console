@@ -11,6 +11,7 @@ Build a React single-page application dashboard that visualises Formula 1 sessio
 
 **Language/Version**: JavaScript (ES2022, JSX) — frontend; Python 3.11 — backend (existing)  
 **Primary Dependencies (frontend)**: React 18, Vite 5, React Router v6, TanStack Query v5, MUI v5, Nivo (charts), D3 color scales (`d3-scale`, `d3-scale-chromatic`), Vitest, React Testing Library, Playwright  
+**Design Tooling**: Figma MCP (`create_new_file`, `use_figma`, `get_design_context`, `get_screenshot`) — new dedicated Figma file "F1 Console Dashboard"; design-first workflow (Figma → React); `get_design_context` used as implementation reference per screen  
 **Primary Dependencies (backend additions)**: FastF1 (existing), FastAPI (existing)  
 **Storage**: FastF1 file-based cache (existing); browser `localStorage` for recently viewed sessions (client-side only)  
 **Testing**: Vitest + React Testing Library (frontend unit/component); pytest (backend unit — existing); Playwright (E2E, `tests/e2e/`)  
@@ -33,6 +34,33 @@ Build a React single-page application dashboard that visualises Formula 1 sessio
 | **V. Code Review Discipline** | ✅ PASS | All work on branch `001-f1-react-dashboard`, merged via PR. |
 
 **Post-Design Re-check**: No violations introduced. All new components use MUI. All new services route through the existing FastAPI backend. No external data calls from the browser.
+
+## Design Workflow (Figma MCP)
+
+**Approach**: Design-first — all 5 screens are designed in Figma before their corresponding React pages are implemented. Each implementation task reads the design via `get_design_context` before authoring components.
+
+**Figma file**: A new dedicated file named **"F1 Console Dashboard"** created via Figma MCP `create_new_file`. The `fileKey` is recorded in `specs/001-f1-react-dashboard/figma-file.md` after creation.
+
+**Screen inventory** (in design order — AppShell first, as it wraps all views):
+
+| Frame | Covers | Blocks implementation of |
+|-------|--------|--------------------------|
+| `AppShell` | NavBar, shell layout, session selector dialog, recent sessions strip | T013, T014, T017, T018, T019 |
+| `LapTimesPage` | Box plot area, filter controls, driver comparison chart | T022, T023, T024, T026 |
+| `TrackPage` | Track map canvas, driver selector, lap selector, telemetry toggle, tooltip | T039, T040, T041, T042 |
+| `QualifyingPage` | Results DataGrid, round filter toggle, driver detail drawer | T031, T032, T033, T034 |
+| `ChampionshipPage` | Standings DataGrid, round slider, scenario drawer | T047, T048, T049, T050 |
+
+**Design constraints to apply in Figma**:
+- Color palette: primary `#1976d2`, secondary `#ff9800`, background `#f5f5f5`, text `#212121`
+- 8px spacing grid; MUI component conventions for all interactive elements
+- Desktop frame width: 1440px; include a 375px mobile artboard for AppShell only
+
+**Implementation reference workflow** (per screen):
+1. Call `get_design_context` with the frame's `nodeId` and `fileKey`
+2. Review the returned screenshot and code hints for layout, spacing, and component hierarchy
+3. Author MUI components manually, using the design as the source of truth for visual decisions
+4. MUI idioms and project conventions override any auto-generated code snippets
 
 ## Project Structure
 

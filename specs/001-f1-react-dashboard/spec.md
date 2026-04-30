@@ -5,6 +5,25 @@
 **Status**: Draft  
 **Input**: User description: "create application requirements based on docs/functional-requirements.md. We also want to create a react application as a dashboard to display the data. Come up with features and UI requirements too"
 
+## Clarifications
+
+### Session 2026-04-29
+
+- Q: What direction should the Figma MCP workflow run — design-first or code-first? → A: Design-first — Figma screens are created before React implementation; `get_design_context` is used to guide component authoring.
+- Q: Which screens need Figma designs? → A: All 5 — AppShell, LapTimesPage, TrackPage, QualifyingPage, ChampionshipPage.
+- Q: Should designs live in an existing Figma file or a new dedicated one? → A: New dedicated Figma file created for this project.
+- Q: How should `get_design_context` be used during implementation? → A: As an implementation reference — the design context (screenshot + code hints) guides manual MUI component authoring; it is not used to auto-generate final code.
+
+### Design Integration Requirements (derived from clarifications)
+
+- **FR-033**: A dedicated Figma file named "F1 Console Dashboard" MUST be created using the Figma MCP before any page implementation begins.
+- **FR-034**: Figma frames MUST be designed for all 5 screens: AppShell (nav, shell, session selector), LapTimesPage, TrackPage, QualifyingPage, and ChampionshipPage — in that order.
+- **FR-035**: Each screen MUST apply the project color palette (primary #1976d2, secondary #ff9800, background #f5f5f5, text #212121) and MUI component conventions in the Figma design.
+- **FR-036**: Before implementing each React page or layout component, the developer MUST read the corresponding Figma frame using `get_design_context` to extract layout, spacing, and visual hierarchy as an implementation reference.
+- **FR-037**: Figma designs MUST be treated as the source of truth for layout and visual hierarchy; MUI component choices and idiomatic React patterns take precedence over generated code snippets.
+
+---
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Session Explorer & Lap Time Analysis (Priority: P1)
