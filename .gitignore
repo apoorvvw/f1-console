@@ -216,3 +216,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# FastF1 cache
+.fastf1_cache/
+
+# Test results
+test-results/
+**/test-results/
+
+# Node modules and build outputs
+node_modules/
+dist/
+build/
+.next/
+
+# IDE and system files
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/settings.json
