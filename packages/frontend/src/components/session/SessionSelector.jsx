@@ -24,7 +24,7 @@ export default function SessionSelector({ open, onClose }) {
 
   const { data: schedule, isLoading } = useSchedule(year || null);
 
-  const events = schedule?.events ?? [];
+  const events = schedule ?? [];
 
   function handleYearChange(e) {
     setYear(e.target.value);
@@ -60,7 +60,7 @@ export default function SessionSelector({ open, onClose }) {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth disabled={!year}>
+          <FormControl fullWidth disabled={!year || isLoading}>
             <InputLabel id="event-label">Grand Prix</InputLabel>
             <Select
               labelId="event-label"
@@ -70,8 +70,8 @@ export default function SessionSelector({ open, onClose }) {
               endAdornment={isLoading ? <CircularProgress size={16} sx={{ mr: 2 }} /> : null}
             >
               {events.map((ev) => (
-                <MenuItem key={ev.event_name} value={ev.event_name}>
-                  {ev.event_name}
+                <MenuItem key={ev.EventName} value={ev.EventName}>
+                  {ev.EventName}
                 </MenuItem>
               ))}
             </Select>

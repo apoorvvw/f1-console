@@ -16,7 +16,7 @@ export default function RecentSessions() {
       {recentSessions.map((s) => (
         <Chip
           key={`${s.year}-${s.event}-${s.sessionType}`}
-          label={`${s.year} ${s.event} – ${s.sessionType}`}
+          label={`${s.event} ${s.year} – ${s.sessionType}`}
           size="small"
           onClick={() => setActiveSession(s)}
           clickable

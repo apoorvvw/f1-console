@@ -2,7 +2,7 @@
 
 **Phase 1 output for**: `specs/001-f1-react-dashboard/plan.md`  
 **Date**: 2026-04-29  
-**Base URL**: `http://localhost:3030` (configurable via `VITE_API_BASE_URL` environment variable)  
+**Base URL**: `http://localhost:8000` (configurable via `VITE_API_BASE_URL` environment variable)  
 **API Version prefix**: `/api/v1` (recommended — add prefix in FastAPI `main.py` router registration)
 
 ---

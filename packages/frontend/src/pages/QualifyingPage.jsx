@@ -35,7 +35,7 @@ export default function QualifyingPage() {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Qualifying — {year} {event}
+        Qualifying — {event} ({year})
       </Typography>
 
       <Paper sx={{ p: 2 }}>

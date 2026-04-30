@@ -19,13 +19,13 @@
 # From the repository root, activate the virtual environment
 source .venv/bin/activate
 
-# Start the FastAPI backend on port 3030
+# Start the FastAPI backend on port 8000
 cd packages/backend
 python run.py
-# OR: uvicorn app.main:app --reload --port 3030
+# OR: uvicorn app.main:app --reload --port 8000
 ```
 
-Verify: `curl http://localhost:3030/sessions/schedule/2024` should return event schedule JSON.
+Verify: `curl http://localhost:8000/sessions/schedule/2024` should return event schedule JSON.
 
 ---
 
@@ -55,7 +55,7 @@ npm install --save-dev \
 
 Create `.env` at `packages/frontend/.env`:
 ```
-VITE_API_BASE_URL=http://localhost:3030
+VITE_API_BASE_URL=http://localhost:8000
 ```
 
 ---
@@ -110,8 +110,8 @@ npx playwright test tests/e2e/
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `VITE_API_BASE_URL` | `http://localhost:3030` | Backend API base URL (frontend) |
-| `BACKEND_PORT` | `3030` | Backend listen port |
+| `VITE_API_BASE_URL` | `http://localhost:8000` | Backend API base URL (frontend) |
+| `BACKEND_PORT` | `8000` | Backend listen port |
 | `FRONTEND_PORT` | `3000` | Frontend dev server port |
 | `CORS_ORIGINS` | `http://localhost:3000` | Allowed CORS origins for backend |
 

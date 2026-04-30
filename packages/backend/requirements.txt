@@ -1,8 +1,8 @@
 fastapi==0.115.12
 uvicorn[standard]==0.34.2
 fastf1==3.5.3
-pandas>=1.5.0,<2.2
-numpy>=1.21.0,<2.0
+pandas>=2.2.0
+numpy>=1.21.0
 python-dotenv==1.1.0
 httpx==0.28.1
 

@@ -64,7 +64,7 @@ Always use environment variables with sensible defaults for port configuration t
 
 **Backend Configuration**:
 ```javascript
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 8000;
 ```
 
 **Frontend Configuration**:

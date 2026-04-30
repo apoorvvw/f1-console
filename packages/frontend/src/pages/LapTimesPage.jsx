@@ -46,7 +46,7 @@ export default function LapTimesPage() {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Lap Times — {year} {event} ({sessionType})
+        Lap Times — {event} ({year})
       </Typography>
 
       <Paper sx={{ p: 2, mb: 2 }}>

@@ -63,7 +63,7 @@ reviews, and prevents style-related merge conflicts.
 - Setup and teardown hooks are required; tests MUST succeed on
   repeated runs.
 - Port configuration MUST use environment variables with sensible
-  defaults (backend: 3030, frontend: 3000).
+  defaults (backend: 8000, frontend: 3000).
 
 **Rationale**: Reliable, well-structured tests catch regressions
 early and enable confident refactoring.

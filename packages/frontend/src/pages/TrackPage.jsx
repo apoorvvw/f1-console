@@ -51,7 +51,7 @@ export default function TrackPage() {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Track Visualization — {year} {event} ({sessionType})
+        Track Visualization — {event} ({year})
       </Typography>
 
       <Grid container spacing={2}>
