@@ -1,5 +1,5 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
-at specs/001-f1-react-dashboard/plan.md
+at specs/002-qualifying-page-enhancements/plan.md
 <!-- SPECKIT END -->

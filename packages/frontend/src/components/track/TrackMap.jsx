@@ -51,7 +51,7 @@ function projectPoints(points, width, height) {
   }));
 }
 
-export default function TrackMap({ points, corners, metric, showCorners, isLoading }) {
+export default function TrackMap({ points, corners, metric, showCorners, isLoading, height = 500 }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const [size, setSize] = useState({ width: 600, height: 500 });
@@ -138,13 +138,13 @@ export default function TrackMap({ points, corners, metric, showCorners, isLoadi
     }
   }
 
-  if (isLoading) return <Skeleton variant="rectangular" width="100%" height={500} />;
+  if (isLoading) return <Skeleton variant="rectangular" width="100%" height={height} />;
   if (!points?.length) return null;
 
   return (
     <Box
       ref={containerRef}
-      sx={{ position: 'relative', width: '100%', height: 500 }}
+      sx={{ position: 'relative', width: '100%', height, overflow: 'hidden' }}
     >
       <canvas
         ref={canvasRef}

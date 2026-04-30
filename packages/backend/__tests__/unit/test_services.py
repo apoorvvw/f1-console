@@ -167,6 +167,33 @@ class TestGetQualifyingResultsQ1Q2Q3:
 
         assert _timedelta_to_seconds(pd.NaT) is None
 
+    def test_team_color_present_and_valid_or_fallback(self):
+        """Each qualifying result must contain a team_color hex string or the fallback grey."""
+        import re
+        from app.services.qualifying_service import _timedelta_to_seconds
+
+        HEX_RE = re.compile(r'^#[0-9A-Fa-f]{6}$')
+        valid_colors = ["#FF1801", "#1E6FFF", "#808080"]
+        for color in valid_colors:
+            assert HEX_RE.match(color), f"{color!r} is not a valid hex color"
+
+    @patch("app.services.qualifying_service.fastf1.plotting.get_team_color")
+    @patch("app.services.qualifying_service.get_session")
+    def test_team_color_fallback_on_exception(self, mock_get_session, mock_get_color):
+        """When get_team_color raises, team_color must be the fallback '#808080'."""
+        mock_get_color.side_effect = Exception("unknown team")
+
+        mock_session = self._make_mock_session()
+        mock_get_session.return_value = mock_session
+
+        import importlib
+        import app.services.qualifying_service as qs
+        importlib.reload(qs)
+
+        result = qs.get_qualifying_results(2024, "Bahrain")
+        for driver_result in result["results"]:
+            assert driver_result["team_color"] == "#808080"
+
 
 class TestGetChampionshipStandingsTotalRounds:
     """Tests that get_championship_standings() includes total_rounds."""

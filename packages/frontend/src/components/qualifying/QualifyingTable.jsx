@@ -46,7 +46,7 @@ function buildColumns(roundFilter) {
   ];
 }
 
-export default function QualifyingTable({ results, isLoading, roundFilter, onDriverSelect }) {
+export default function QualifyingTable({ results, isLoading, roundFilter, onDriverSelect, selectedDriver }) {
   if (isLoading) {
     return <Skeleton variant="rectangular" width="100%" height={400} />;
   }
@@ -60,6 +60,13 @@ export default function QualifyingTable({ results, isLoading, roundFilter, onDri
         '& .q-null-cell': { color: '#bdbdbd' },
         '& .q-active-col': { backgroundColor: 'rgba(25,118,210,0.08)', fontWeight: 700 },
         '& .q-dim-col': { color: '#9e9e9e' },
+        '& .MuiDataGrid-row.q-selected-row': {
+          backgroundColor: 'rgba(25,118,210,0.18) !important',
+          fontWeight: 700,
+        },
+        '& .MuiDataGrid-row.q-selected-row:hover': {
+          backgroundColor: 'rgba(25,118,210,0.28) !important',
+        },
       }}
     >
       <DataGrid
@@ -68,6 +75,9 @@ export default function QualifyingTable({ results, isLoading, roundFilter, onDri
         density="compact"
         disableRowSelectionOnClick={false}
         onRowClick={(params) => onDriverSelect?.(params.row)}
+        getRowClassName={(params) =>
+          params.row.driver === selectedDriver?.driver ? 'q-selected-row' : ''
+        }
         pageSizeOptions={[20]}
         initialState={{ pagination: { paginationModel: { pageSize: 20 } } }}
       />
