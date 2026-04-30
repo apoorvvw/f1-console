@@ -1,7 +1,5 @@
 import { ResponsiveBoxPlot } from '@nivo/boxplot';
 import Skeleton from '@mui/material/Skeleton';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
 import { getTeamColor } from '../../constants/teamColors.js';
 
 function filterLaps(laps, filters) {
@@ -27,27 +25,41 @@ function toNivoBoxPlot(laps) {
   }));
 }
 
+const darkAxisStyle = {
+  tickSize: 5,
+  tickPadding: 5,
+};
+
+const darkTheme = {
+  axis: {
+    ticks: { text: { fill: 'rgba(255,255,255,0.45)', fontSize: 11 } },
+    legend: { text: { fill: 'rgba(255,255,255,0.35)', fontSize: 11 } },
+  },
+  grid: { line: { stroke: 'rgba(255,255,255,0.06)' } },
+};
+
 export default function LapDistributionChart({ data, isLoading, error, filters }) {
   if (isLoading) {
-    return <Skeleton variant="rectangular" width="100%" height={300} />;
+    return <Skeleton variant="rectangular" width="100%" height={300} sx={{ bgcolor: 'rgba(255,255,255,0.05)', borderRadius: 2 }} />;
   }
   if (error) {
-    return <Alert severity="error">{error.message}</Alert>;
+    return <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-sm text-red-300">{error.message}</div>;
   }
   if (!data?.laps?.length) {
-    return <Alert severity="info">No lap data available for the selected session.</Alert>;
+    return <div className="p-3 text-sm text-white/40">No lap data available for the selected session.</div>;
   }
 
   const filteredLaps = filterLaps(data.laps, filters);
   const boxPlotData = toNivoBoxPlot(filteredLaps);
 
   if (!boxPlotData.length) {
-    return <Alert severity="info">No laps match the current filters.</Alert>;
+    return <div className="p-3 text-sm text-white/40">No laps match the current filters.</div>;
   }
 
   return (
-    <Box sx={{ height: 350 }}>
+    <div style={{ height: 350 }}>
       <ResponsiveBoxPlot
+        theme={darkTheme}
         data={boxPlotData}
         margin={{ top: 20, right: 20, bottom: 60, left: 70 }}
         minValue="auto"
@@ -61,31 +73,21 @@ export default function LapDistributionChart({ data, isLoading, error, filters }
           return item?.color ?? '#888';
         }}
         axisBottom={{
-          tickSize: 5,
-          tickPadding: 5,
+          ...darkAxisStyle,
           legend: 'Driver',
           legendPosition: 'middle',
           legendOffset: 48,
         }}
         axisLeft={{
-          tickSize: 5,
-          tickPadding: 5,
+          ...darkAxisStyle,
           legend: 'Lap Time (s)',
           legendPosition: 'middle',
           legendOffset: -56,
           format: (v) => v.toFixed(1),
         }}
         tooltip={({ group, data: d }) => (
-          <div
-            style={{
-              background: '#fff',
-              border: '1px solid #ccc',
-              borderRadius: 4,
-              padding: '8px 12px',
-              fontSize: 12,
-            }}
-          >
-            <strong>{group}</strong>
+          <div style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, padding: '8px 12px', fontSize: 12, color: '#fff' }}>
+            <strong style={{ color: '#ef233c' }}>{group}</strong>
             <br />
             Median: {d.median?.toFixed(3)}s
             <br />
@@ -93,6 +95,6 @@ export default function LapDistributionChart({ data, isLoading, error, filters }
           </div>
         )}
       />
-    </Box>
+    </div>
   );
 }

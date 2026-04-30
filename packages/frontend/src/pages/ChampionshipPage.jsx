@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Alert from '@mui/material/Alert';
 import { useStandings, useWdcScenarios } from '../hooks/useChampionship.js';
-import { useSchedule } from '../hooks/useSession.js';
 import RoundSelector from '../components/championship/RoundSelector.jsx';
 import StandingsTable from '../components/championship/StandingsTable.jsx';
 import ScenarioPanel from '../components/championship/ScenarioPanel.jsx';
+import Card from '../components/ui/Card.jsx';
+import PageHeader from '../components/ui/PageHeader.jsx';
 
 const DEFAULT_YEAR = 2025;
 
@@ -24,24 +21,26 @@ export default function ChampionshipPage() {
   const isSeasonOver = remainingRaces === 0;
 
   if (error) {
-    return <Alert severity="error" sx={{ mt: 2 }}>{error.message}</Alert>;
+    return <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-sm text-red-300 mt-4">{error.message}</div>;
   }
 
   return (
-    <Box>
-      <Typography variant="h5" gutterBottom>
-        Championship Standings — {year}
-      </Typography>
+    <div className="animate-fade-in">
+      <PageHeader
+        title="Championship Standings"
+        subtitle={String(year)}
+        badge={isSeasonOver ? 'Season Complete' : `${remainingRaces} Races Remaining`}
+      />
 
-      <Paper sx={{ p: 2, mb: 2 }}>
+      <Card className="p-4 mb-4">
         <RoundSelector
           value={selectedRound}
           totalRounds={totalRounds}
           onChange={setSelectedRound}
         />
-      </Paper>
+      </Card>
 
-      <Paper sx={{ p: 2 }}>
+      <Card className="p-4">
         <StandingsTable
           standings={standingsData?.standings}
           wdcScenarios={wdcData}
@@ -49,13 +48,14 @@ export default function ChampionshipPage() {
           isSeasonOver={isSeasonOver}
           onDriverSelect={setSelectedDriver}
         />
-      </Paper>
+      </Card>
 
       <ScenarioPanel
         driver={selectedDriver}
         wdcScenarios={wdcData}
         onClose={() => setSelectedDriver(null)}
       />
-    </Box>
+    </div>
   );
 }
+

@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Alert from '@mui/material/Alert';
 import { useSessionContext } from '../context/SessionContext.jsx';
 import { useQualifyingResults } from '../hooks/useQualifying.js';
 import RoundFilter from '../components/qualifying/RoundFilter.jsx';
 import QualifyingTable from '../components/qualifying/QualifyingTable.jsx';
 import DriverDetailPanel from '../components/qualifying/DriverDetailPanel.jsx';
+import Card from '../components/ui/Card.jsx';
+import PageHeader from '../components/ui/PageHeader.jsx';
+import InfoAlert from '../components/ui/InfoAlert.jsx';
 
 export default function QualifyingPage() {
   const { activeSession } = useSessionContext();
@@ -21,28 +19,28 @@ export default function QualifyingPage() {
 
   if (!activeSession) {
     return (
-      <Alert severity="info" sx={{ mt: 2 }}>
-        No session selected. Use the <strong>Select Session</strong> button to choose a qualifying
-        session.
-      </Alert>
+      <InfoAlert>
+        No session selected. Use the <strong className="text-white/70">Select Session</strong> button to choose a qualifying session.
+      </InfoAlert>
     );
   }
 
   if (error) {
-    return <Alert severity="error">{error.message}</Alert>;
+    return <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-sm text-red-300">{error.message}</div>;
   }
 
   return (
-    <Box>
-      <Typography variant="h5" gutterBottom>
-        Qualifying — {event} ({year})
-      </Typography>
+    <div className="animate-fade-in">
+      <PageHeader
+        title="Qualifying"
+        subtitle={`${event} · ${year}`}
+      />
 
-      <Paper sx={{ p: 2 }}>
-        <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
-          <Typography variant="subtitle2">Filter by round:</Typography>
+      <Card className="p-4">
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
+          <span className="text-xs font-medium text-white/40 uppercase tracking-widest">Filter by round:</span>
           <RoundFilter value={roundFilter} onChange={setRoundFilter} />
-        </Stack>
+        </div>
 
         <QualifyingTable
           results={data?.results}
@@ -50,9 +48,9 @@ export default function QualifyingPage() {
           roundFilter={roundFilter}
           onDriverSelect={setSelectedDriver}
         />
-      </Paper>
+      </Card>
 
       <DriverDetailPanel driver={selectedDriver} onClose={() => setSelectedDriver(null)} />
-    </Box>
+    </div>
   );
 }

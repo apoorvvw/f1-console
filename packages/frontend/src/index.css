@@ -1,9 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@200;400;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --accent-red: #ef233c;
+  --accent-red-glow: rgba(239, 35, 60, 0.5);
+  --accent-red-dim: rgba(239, 35, 60, 0.15);
+  --bg-base: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-elevated: #111111;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Custom CSS Property for conic-gradient animation ─────── */
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ── Base Reset ───────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: 'Roboto', 'Inter', sans-serif;
-  background-color: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Text Selection ───────────────────────────────────────── */
+::selection {
+  background: var(--accent-red);
+  color: white;
+}
+
+/* ── Custom Animations ────────────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-red-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 35, 60, 0.3); }
+  50%       { box-shadow: 0 0 24px rgba(239, 35, 60, 0.65); }
+}
+
+@keyframes border-spin {
+  from { --gradient-angle: 0deg; }
+  to   { --gradient-angle: 360deg; }
+}
+
+@keyframes ping-dot {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Utility Classes ──────────────────────────────────────── */
+.animate-fade-up {
+  animation: fade-in-up 0.65s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-red-glow 2.5s ease-in-out infinite;
+}
+
+/* Spinning red border CTA button */
+.shiny-cta {
+  --gradient-angle: 0deg;
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  padding: 0.625rem 1.5rem;
+  background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+    conic-gradient(from var(--gradient-angle), transparent 0%, #ef233c 5%, #ef233c 25%, transparent 40%) border-box;
+  border: 2px solid transparent;
+  cursor: pointer;
+  isolation: isolate;
+  animation: border-spin 2.5s linear infinite;
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.15s ease;
+}
+
+.shiny-cta:hover {
+  transform: scale(1.03);
+}
+
+/* Glassmorphic card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* MUI overrides for dark mode ────────────────────────────── */
+.MuiPaper-root {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.MuiDataGrid-root {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+.MuiDataGrid-columnHeaders,
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-filler,
+[class*="MuiDataGrid-columnHeaders"] {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: var(--text-secondary) !important;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  color: var(--text-secondary) !important;
+}
+
+.MuiDataGrid-row:hover {
+  background-color: rgba(239, 35, 60, 0.06) !important;
+}
+
+.MuiDataGrid-cell {
+  border-color: var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiDataGrid-footerContainer {
+  background-color: var(--bg-elevated) !important;
+  border-color: var(--border) !important;
+  color: var(--text-secondary) !important;
+}
+
+.MuiTablePagination-root {
+  color: var(--text-secondary) !important;
+}
+
+.MuiTablePagination-selectIcon,
+.MuiTablePagination-actions button {
+  color: var(--text-secondary) !important;
+}
+
+.MuiAlert-root {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.MuiAutocomplete-paper {
+  background-color: #1a1a1a !important;
+  border: 1px solid var(--border) !important;
+}
+
+.MuiAutocomplete-option {
+  color: var(--text-primary) !important;
+}
+
+.MuiAutocomplete-option:hover,
+.MuiAutocomplete-option[aria-selected="true"] {
+  background-color: rgba(239, 35, 60, 0.1) !important;
+}
+
+.MuiOutlinedInput-root {
+  color: var(--text-primary) !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: var(--border) !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--accent-red) !important;
+}
+
+.MuiInputLabel-root {
+  color: var(--text-muted) !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: var(--accent-red) !important;
+}
+
+.MuiChip-root {
+  background-color: rgba(255,255,255,0.06) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+.MuiChip-deleteIcon {
+  color: var(--text-muted) !important;
+}
+
+.MuiToggleButton-root {
+  color: var(--text-secondary) !important;
+  border-color: var(--border) !important;
+}
+
+.MuiToggleButton-root.Mui-selected {
+  background-color: rgba(239, 35, 60, 0.15) !important;
+  color: var(--accent-red) !important;
+  border-color: rgba(239, 35, 60, 0.4) !important;
+}
+
+/* Prefers reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-pulse-glow,
+  .shiny-cta {
+    animation: none;
+  }
+}
+
+/* MUI Dialog (SessionSelector) ─────────────────────────── */
+.MuiDialog-paper {
+  background-color: #111111 !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+}
+
+.MuiDialogTitle-root {
+  color: var(--text-primary) !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.MuiDialogContent-root {
+  background-color: #111111 !important;
+}
+
+.MuiDialogActions-root {
+  background-color: #111111 !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+.MuiDialogActions-root .MuiButton-root {
+  color: var(--text-secondary) !important;
+}
+
+.MuiDialogActions-root .MuiButton-contained {
+  background-color: var(--accent-red) !important;
+  color: white !important;
+}
+
+.MuiDialogActions-root .MuiButton-contained:hover {
+  background-color: #d41e34 !important;
+}
+
+.MuiMenuItem-root {
+  color: var(--text-primary) !important;
+}
+
+.MuiMenuItem-root:hover,
+.MuiMenuItem-root.Mui-selected {
+  background-color: rgba(239, 35, 60, 0.1) !important;
+}
+
+.MuiMenuItem-root.Mui-selected {
+  color: var(--accent-red) !important;
+}
+
+.MuiSelect-icon {
+  color: var(--text-muted) !important;
+}
+
+.MuiPopover-paper,
+.MuiMenu-paper {
+  background-color: #1a1a1a !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-primary) !important;
+}
+
+

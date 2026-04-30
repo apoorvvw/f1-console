@@ -1,8 +1,15 @@
 import { ResponsiveLine } from '@nivo/line';
 import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { getTeamColor } from '../../constants/teamColors.js';
+
+const darkTheme = {
+  axis: {
+    ticks: { text: { fill: 'rgba(255,255,255,0.45)', fontSize: 11 } },
+    legend: { text: { fill: 'rgba(255,255,255,0.35)', fontSize: 11 } },
+  },
+  grid: { line: { stroke: 'rgba(255,255,255,0.06)' } },
+  legends: { text: { fill: 'rgba(255,255,255,0.5)', fontSize: 11 } },
+};
 
 function toNivoLine(data, selectedDrivers) {
   const drivers = selectedDrivers.length ? selectedDrivers : Object.keys(data);
@@ -23,22 +30,23 @@ function toNivoLine(data, selectedDrivers) {
 
 export default function DriverComparisonChart({ data, isLoading, selectedDrivers = [] }) {
   if (isLoading) {
-    return <Skeleton variant="rectangular" width="100%" height={280} />;
+    return <Skeleton variant="rectangular" width="100%" height={280} sx={{ bgcolor: 'rgba(255,255,255,0.05)', borderRadius: 2 }} />;
   }
   if (!data) {
     return (
-      <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>
+      <p className="text-sm text-white/40 p-2">
         Select drivers to compare lap times across the race.
-      </Typography>
+      </p>
     );
   }
 
   const lineData = toNivoLine(data, selectedDrivers);
 
   return (
-    <Box sx={{ height: 280 }}>
+    <div style={{ height: 280 }}>
       <ResponsiveLine
         data={lineData}
+        theme={darkTheme}
         margin={{ top: 20, right: 110, bottom: 60, left: 70 }}
         xScale={{ type: 'linear', min: 'auto', max: 'auto' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
@@ -85,21 +93,13 @@ export default function DriverComparisonChart({ data, isLoading, selectedDrivers
           },
         ]}
         tooltip={({ point }) => (
-          <div
-            style={{
-              background: '#fff',
-              border: '1px solid #ccc',
-              borderRadius: 4,
-              padding: '6px 10px',
-              fontSize: 12,
-            }}
-          >
-            <strong>{point.serieId}</strong> — Lap {point.data.x}
+          <div style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, padding: '6px 10px', fontSize: 12, color: '#fff' }}>
+            <strong style={{ color: '#ef233c' }}>{point.serieId}</strong> — Lap {point.data.x}
             <br />
             {point.data.y.toFixed(3)}s{point.data.isOutlier ? ' (outlier)' : ''}
           </div>
         )}
       />
-    </Box>
+    </div>
   );
 }
