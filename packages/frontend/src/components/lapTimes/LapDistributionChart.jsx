@@ -2,14 +2,7 @@ import { useMemo } from 'react';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import Skeleton from '@mui/material/Skeleton';
 import { getTeamColor } from '../../constants/teamColors.js';
-
-const COMPOUND_COLORS = {
-  SOFT: '#e8002d',
-  MEDIUM: '#FFC906',
-  HARD: '#f0f0f0',
-  INTERMEDIATE: '#39b54a',
-  WET: '#0067ff',
-};
+import { COMPOUND_COLORS } from '../../constants/compoundColors.js';
 
 // Chart dimensions
 const W = 900;
