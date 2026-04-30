@@ -11,6 +11,99 @@ import { routeForSessionType } from '../constants/sessionRouting.js';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
+// ── Latest Session Card ───────────────────────────────────────────────────────
+
+const SESSION_TYPE_OPTIONS = [
+  { value: 'R',   label: 'Race' },
+  { value: 'Q',   label: 'Quali' },
+  { value: 'FP1', label: 'FP1' },
+  { value: 'FP2', label: 'FP2' },
+  { value: 'FP3', label: 'FP3' },
+  { value: 'SQ',  label: 'Sprint Q' },
+  { value: 'S',   label: 'Sprint' },
+];
+
+function SessionTypeChips({ value, onChange }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {SESSION_TYPE_OPTIONS.map((opt) => (
+        <button
+          key={opt.value}
+          onClick={() => onChange(opt.value)}
+          className={[
+            'px-2.5 py-1 rounded-full text-xs font-semibold font-display transition-colors duration-150',
+            value === opt.value
+              ? 'bg-[#ef233c] text-white'
+              : 'bg-white/8 text-white/50 hover:bg-white/15 hover:text-white/80',
+          ].join(' ')}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function LatestSessionCard({ schedule, isLoading, sessionType, onSelect }) {
+  const today = new Date().toISOString().split('T')[0];
+  const past = schedule?.filter((e) => e.EventDate < today) ?? [];
+  const latest = past.length > 0 ? past[past.length - 1] : null;
+  const typeLabel = SESSION_TYPE_OPTIONS.find((o) => o.value === sessionType)?.label ?? sessionType;
+
+  return (
+    <button
+      className="text-left group disabled:cursor-default"
+      disabled={isLoading || !latest}
+      onClick={() => latest && onSelect({ year: CURRENT_YEAR, event: latest.EventName, sessionType })}
+    >
+      <Card glow className="p-5 flex flex-col gap-3 h-full group-hover:border-white/20 transition-colors duration-200">
+        <div className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-[#ef233c] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+          <span className="text-xs font-semibold text-white/40 uppercase tracking-widest font-display">
+            Latest Session
+          </span>
+        </div>
+
+        {isLoading ? (
+          <div className="space-y-2 animate-pulse">
+            <div className="h-4 bg-white/10 rounded w-3/4" />
+            <div className="h-3 bg-white/5 rounded w-1/2" />
+          </div>
+        ) : latest ? (
+          <>
+            <div>
+              <p className="text-base font-bold text-white leading-tight font-display group-hover:text-[#ef233c] transition-colors duration-200">
+                {latest.EventName}
+              </p>
+              <p className="text-xs text-white/45 mt-0.5">
+                Round {latest.RoundNumber} &middot;{' '}
+                {new Date(latest.EventDate).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </p>
+            </div>
+            <div className="mt-auto flex items-center justify-between">
+              <span className="text-xs text-white/30 group-hover:text-white/60 transition-colors duration-200">
+                View {typeLabel} analysis
+              </span>
+              <svg className="w-3 h-3 text-white/30 group-hover:text-white/60 transition-colors duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </div>
+          </>
+        ) : (
+          <p className="text-sm text-white/30 italic">No past sessions</p>
+        )}
+      </Card>
+    </button>
+  );
+}
+
 // ── Upcoming Race Card (T009) ─────────────────────────────────────────────────
 
 function UpcomingRaceCard({ schedule, isLoading }) {
@@ -67,6 +160,8 @@ function StandingsSnapshotCard({ schedule, scheduleLoading }) {
 
   const drivers = data?.drivers?.slice(0, 3) ?? [];
   const constructors = data?.constructors?.slice(0, 3) ?? [];
+  const leader = drivers[0] ?? null;
+  const constructorLeader = constructors[0] ?? null;
 
   const loading = scheduleLoading || isLoading;
 
@@ -95,34 +190,54 @@ function StandingsSnapshotCard({ schedule, scheduleLoading }) {
       ) : drivers.length === 0 ? (
         <p className="text-sm text-white/30 italic">No standings data</p>
       ) : (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-          {/* Drivers */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest">Drivers</span>
-            {drivers.map((d) => (
-              <div key={d.position} className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="text-[10px] text-white/30 w-3 shrink-0">{d.position}</span>
-                  <span className="text-xs text-white/80 font-medium truncate">{d.driver_name}</span>
-                </div>
-                <span className="text-xs text-white/50 shrink-0">{d.points}</span>
+        <>
+          {/* Championship leaders highlight */}
+          {leader && (
+            <div className="flex gap-3 mb-1">
+              <div className="flex-1 rounded-lg bg-[#ef233c]/10 border border-[#ef233c]/20 px-3 py-2">
+                <span className="text-[10px] font-semibold text-[#ef233c]/70 uppercase tracking-widest block mb-0.5">WDC Leader</span>
+                <span className="text-sm font-bold text-white truncate block">{leader.driver_name}</span>
+                <span className="text-xs text-white/40">{leader.points} pts</span>
               </div>
-            ))}
-          </div>
-          {/* Constructors */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest">Teams</span>
-            {constructors.map((c) => (
-              <div key={c.position} className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="text-[10px] text-white/30 w-3 shrink-0">{c.position}</span>
-                  <span className="text-xs text-white/80 font-medium truncate">{c.team}</span>
+              {constructorLeader && (
+                <div className="flex-1 rounded-lg bg-white/5 border border-white/10 px-3 py-2">
+                  <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest block mb-0.5">WCC Leader</span>
+                  <span className="text-sm font-bold text-white truncate block">{constructorLeader.team}</span>
+                  <span className="text-xs text-white/40">{constructorLeader.points} pts</span>
                 </div>
-                <span className="text-xs text-white/50 shrink-0">{c.points}</span>
-              </div>
-            ))}
+              )}
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+            {/* Drivers */}
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest">Drivers</span>
+              {drivers.map((d) => (
+                <div key={d.position} className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[10px] text-white/30 w-3 shrink-0">{d.position}</span>
+                    <span className="text-xs text-white/80 font-medium truncate">{d.driver_name}</span>
+                  </div>
+                  <span className="text-xs text-white/50 shrink-0">{d.points}</span>
+                </div>
+              ))}
+            </div>
+            {/* Constructors */}
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest">Teams</span>
+              {constructors.map((c) => (
+                <div key={c.position} className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[10px] text-white/30 w-3 shrink-0">{c.position}</span>
+                    <span className="text-xs text-white/80 font-medium truncate">{c.team}</span>
+                  </div>
+                  <span className="text-xs text-white/50 shrink-0">{c.points}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </Card>
   );
@@ -133,7 +248,8 @@ function StandingsSnapshotCard({ schedule, scheduleLoading }) {
 export default function DashboardPage() {
   const [selectorOpen, setSelectorOpen] = useState(false);  // T007
   const navigate = useNavigate();
-  const { setActiveSession } = useSessionContext();
+  const { activeSession, setActiveSession } = useSessionContext();
+  const [quickSessionType, setQuickSessionType] = useState(activeSession?.sessionType ?? 'R');
   const { data: schedule, isLoading: scheduleLoading } = useSchedule(CURRENT_YEAR);
 
   // T005: navigate to the correct page after session confirm
@@ -145,6 +261,15 @@ export default function DashboardPage() {
   function handleRecentSelect(session) {
     setActiveSession(session);
     navigate(routeForSessionType(session.sessionType));
+  }
+
+  // chip change: update type and, if there's an active session, navigate immediately
+  function handleQuickTypeChange(type) {
+    setQuickSessionType(type);
+    if (activeSession) {
+      setActiveSession({ ...activeSession, sessionType: type });
+      navigate(routeForSessionType(type));
+    }
   }
 
   return (
@@ -159,10 +284,10 @@ export default function DashboardPage() {
             Choose a year, event, and session type to load race or qualifying data.
           </p>
         </div>
-        <div>
+        <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setSelectorOpen(true)}
-            className="shiny-cta inline-flex items-center gap-2"
+            className="shiny-cta inline-flex items-center gap-2 shrink-0"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" />
@@ -170,42 +295,23 @@ export default function DashboardPage() {
             </svg>
             Select Session
           </button>
+          <SessionTypeChips value={quickSessionType} onChange={handleQuickTypeChange} />
         </div>
 
         {/* T006 — Recent sessions */}
         <RecentSessions onSelect={handleRecentSelect} />
       </Card>
 
-      {/* Secondary cards grid (T008, T009, T010, T011) */}
+      {/* Session info cards: latest, upcoming, standings */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-        {/* T008 — Tracks navigation card (US2) */}
-        <Link to="/track" className="block group">
-          <Card glow className="p-5 flex flex-col gap-3 h-full">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-[#ef233c] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" />
-                <path d="M12 8v4l2 2" />
-              </svg>
-              <span className="text-xs font-semibold text-white/40 uppercase tracking-widest font-display">
-                Tracks
-              </span>
-            </div>
-            <p className="text-base font-bold text-white font-display group-hover:text-[#ef233c] transition-colors duration-200">
-              Explore Circuits
-            </p>
-            <p className="text-xs text-white/40">
-              View track layouts, telemetry overlays, and corner annotations.
-            </p>
-            <div className="mt-auto flex items-center gap-1 text-xs text-white/30 group-hover:text-white/60 transition-colors duration-200">
-              Open Track page
-              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </div>
-          </Card>
-        </Link>
+        {/* Latest session quick link */}
+        <LatestSessionCard
+          schedule={schedule}
+          isLoading={scheduleLoading}
+          sessionType={quickSessionType}
+          onSelect={handleRecentSelect}
+        />
 
         {/* T009 — Upcoming race card (US3) */}
         <UpcomingRaceCard schedule={schedule} isLoading={scheduleLoading} />
@@ -213,6 +319,36 @@ export default function DashboardPage() {
         {/* T010+T011 — Standings snapshot card (US3) */}
         <StandingsSnapshotCard schedule={schedule} scheduleLoading={scheduleLoading} />
       </div>
+
+      {/* T008 — Tracks navigation card (US2) */}
+      <Link to="/track" className="block group mt-4">
+        <Card glow className="p-5 flex items-center gap-4">
+          <div className="flex items-center gap-2 shrink-0">
+            <svg className="w-4 h-4 text-[#ef233c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" />
+              <path d="M12 8v4l2 2" />
+            </svg>
+            <span className="text-xs font-semibold text-white/40 uppercase tracking-widest font-display">
+              Tracks
+            </span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-white font-display group-hover:text-[#ef233c] transition-colors duration-200">
+              Explore Circuits
+            </p>
+            <p className="text-xs text-white/40">
+              View track layouts, telemetry overlays, and corner annotations.
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-xs text-white/30 group-hover:text-white/60 transition-colors duration-200 shrink-0">
+            Open
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </div>
+        </Card>
+      </Link>
 
       {/* T005 — SessionSelector dialog with onConfirm navigation */}
       <SessionSelector

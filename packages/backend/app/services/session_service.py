@@ -17,11 +17,18 @@ def get_session(year: int, event: str, session_type: SessionType) -> fastf1.core
 def get_session_info(year: int, event: str, session_type: SessionType) -> dict:
     """Return high-level metadata about a session."""
     session = get_session(year, event, session_type)
+
+    try:
+        fastest_driver = session.laps.pick_fastest()["Driver"]
+    except Exception:
+        fastest_driver = None
+
     return {
         "year": year,
         "event": session.event["EventName"],
         "session_type": session_type,
         "date": str(session.date),
+        "fastest_driver": fastest_driver,
         "drivers": [
             {
                 "number": drv,

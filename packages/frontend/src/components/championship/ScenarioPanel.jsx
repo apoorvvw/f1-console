@@ -8,13 +8,13 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function ScenarioPanel({ driver, wdcScenarios, onClose }) {
   const open = !!driver;
 
-  const contender = wdcScenarios?.contenders?.find((c) => c.driver === driver?.driver);
+  const contender = wdcScenarios?.contenders?.find((c) => c.driver === driver?.driver_name);
   const remainingRaces = wdcScenarios?.remaining_races ?? 0;
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose} PaperProps={{ sx: { width: 360, p: 2 } }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-        <Typography variant="h6">{driver?.driver}</Typography>
+        <Typography variant="h6">{driver?.driver_name}</Typography>
         <IconButton onClick={onClose} aria-label="close scenario panel" size="small">
           <CloseIcon />
         </IconButton>
