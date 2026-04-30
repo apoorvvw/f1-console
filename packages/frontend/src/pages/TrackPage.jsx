@@ -56,7 +56,7 @@ export default function TrackPage() {
 
       <Grid container spacing={2}>
         {/* Sidebar */}
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="subtitle2" gutterBottom>
               Driver
@@ -114,7 +114,7 @@ export default function TrackPage() {
         </Grid>
 
         {/* Map area */}
-        <Grid item xs={12} md={9}>
+        <Grid size={{ xs: 12, md: 9 }}>
           <Paper sx={{ p: 1 }}>
             {telError && <Alert severity="error">{telError.message}</Alert>}
             {!selectedDriver && !telLoading && (
