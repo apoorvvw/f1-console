@@ -23,3 +23,23 @@ export function getTeamColor(teamName) {
   if (!teamName) return '#888888';
   return TEAM_COLORS[teamName] ?? '#888888';
 }
+
+const TEAM_LOGO_SLUGS = {
+  'Red Bull Racing': 'red-bull-racing',
+  'Ferrari': 'ferrari',
+  'Mercedes': 'mercedes',
+  'McLaren': 'mclaren',
+  'Aston Martin': 'aston-martin',
+  'Alpine': 'alpine',
+  'Williams': 'williams',
+  'RB': 'racing-bulls',
+  'Racing Bulls': 'racing-bulls',
+  'Haas F1 Team': 'haas-f1-team',
+  'Sauber': 'kick-sauber',
+  'Kick Sauber': 'kick-sauber',
+};
+
+export function getTeamLogoUrl(teamName) {
+  const slug = TEAM_LOGO_SLUGS[teamName];
+  return slug ? `/team-logos/${slug}.svg` : null;
+}

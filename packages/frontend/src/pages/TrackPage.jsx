@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSessionContext } from '../context/SessionContext.jsx';
 import { useSessionInfo } from '../hooks/useSession.js';
 import { useLapTelemetry, useCornerAnnotations } from '../hooks/useTrack.js';
@@ -20,6 +20,13 @@ export default function TrackPage() {
 
   const { data: sessionInfo } = useSessionInfo(year, event, sessionType);
   const drivers = sessionInfo?.drivers ?? [];
+
+  useEffect(() => {
+    if (sessionInfo?.fastest_driver) {
+      setSelectedDriver(sessionInfo.fastest_driver);
+      setSelectedLap(null);
+    }
+  }, [sessionInfo?.fastest_driver]);
 
   const { data: telemetry, isLoading: telLoading, error: telError } = useLapTelemetry(
     year,

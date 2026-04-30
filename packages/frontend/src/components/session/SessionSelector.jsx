@@ -16,7 +16,7 @@ import { useSchedule } from '../../hooks/useSession.js';
 const YEARS = Array.from({ length: 9 }, (_, i) => 2018 + i); // 2018–2026
 const SESSION_TYPES = ['FP1', 'FP2', 'FP3', 'Q', 'SQ', 'R', 'S'];
 
-export default function SessionSelector({ open, onClose }) {
+export default function SessionSelector({ open, onClose, onConfirm }) {
   const { setActiveSession } = useSessionContext();
   const [year, setYear] = useState('');
   const [event, setEvent] = useState('');
@@ -35,6 +35,7 @@ export default function SessionSelector({ open, onClose }) {
   function handleConfirm() {
     if (year && event && sessionType) {
       setActiveSession({ year: Number(year), event, sessionType });
+      onConfirm?.({ year: Number(year), event, sessionType });
       onClose();
     }
   }

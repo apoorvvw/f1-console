@@ -7,7 +7,7 @@ function buildColumns(canWinDrivers, isSeasonOver) {
   return [
     { field: 'position', headerName: 'Pos', width: 60, type: 'number' },
     {
-      field: 'driver',
+      field: 'driver_name',
       headerName: 'Driver',
       width: 200,
       renderCell: (params) => {
@@ -39,7 +39,7 @@ export default function StandingsTable({
 
   const canWinDrivers = new Set((wdcScenarios?.contenders ?? []).map((c) => c.driver));
   const rows = (standings ?? []).map((s, i) => ({ id: i, ...s }));
-  const champion = isSeasonOver && rows[0]?.driver;
+  const champion = isSeasonOver && rows[0]?.driver_name;
 
   return (
     <Box
@@ -59,7 +59,7 @@ export default function StandingsTable({
         pageSizeOptions={[20]}
         initialState={{ pagination: { paginationModel: { pageSize: 20 } } }}
         getRowClassName={(params) =>
-          isSeasonOver && params.row.driver === champion ? 'champion-row' : ''
+          isSeasonOver && params.row.driver_name === champion ? 'champion-row' : ''
         }
       />
     </Box>

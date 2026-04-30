@@ -1,6 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
+import { getTeamLogoUrl, getTeamColor } from '../../constants/teamColors.js';
 
 function formatTime(seconds) {
   if (seconds == null) return '—';
@@ -15,7 +16,29 @@ function buildColumns(roundFilter) {
     { field: 'position', headerName: 'Pos', width: 60, type: 'number' },
     { field: 'driver', headerName: 'Driver', width: 80 },
     { field: 'full_name', headerName: 'Name', width: 150 },
-    { field: 'team', headerName: 'Team', width: 160 },
+    {
+      field: 'team',
+      headerName: 'Team',
+      width: 180,
+      renderCell: (params) => {
+        const logo = getTeamLogoUrl(params.value);
+        const color = getTeamColor(params.value);
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, height: '100%' }}>
+            {logo ? (
+              <img
+                src={logo}
+                alt={params.value}
+                style={{ width: 20, height: 20, objectFit: 'contain', flexShrink: 0 }}
+              />
+            ) : (
+              <span style={{ width: 20, height: 20, borderRadius: '50%', background: color, flexShrink: 0, display: 'inline-block' }} />
+            )}
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{params.value}</span>
+          </div>
+        );
+      },
+    },
     ...qCols.map((q) => ({
       field: q.toLowerCase() + '_seconds',
       headerName: q,
